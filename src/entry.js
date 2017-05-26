@@ -5,8 +5,6 @@ import { AppContainer } from 'react-hot-loader';
 
 import './testStyle.less';
 
-// let a = <h1>Hello react!</h1>
-
 const render = () => {
 	ReactDOM.render(
 		<AppContainer>

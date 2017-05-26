@@ -14,10 +14,6 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => (bindActionCreators(actionCreators, dispatch));
 
 class TestSub extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		console.log(...this.props);
 		return (<Test attr={this.props}/>);

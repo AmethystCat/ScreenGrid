@@ -10,11 +10,6 @@ const store = createStore({
 });
 
 export default class Test extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
     	<Provider store={store}>

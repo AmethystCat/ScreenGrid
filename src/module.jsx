@@ -2,15 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Test extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	addName = () => {
 		const { add_name } = this.props.attr;
 		let n = this.props.name + 1;
 		add_name(n);
-	}
+	};
 
 	render() {
 		console.log(this.props);

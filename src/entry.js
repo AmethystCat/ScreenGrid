@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import T from './test.jsx';
+import App from './application.jsx';
 import { AppContainer } from 'react-hot-loader';
 
 import './testStyle.less';
@@ -10,11 +10,12 @@ import './testStyle.less';
 const render = () => {
 	ReactDOM.render(
 		<AppContainer>
-			<T/>
-		</AppContainer>, document.getElementById('app'));	
+			<App/>
+		</AppContainer>, document.getElementById('app')
+	);	
 };
 
 render();
 
 // Hot Module Replacement API
-if(module.hot){module.hot.accept('./test.jsx', render);}
+if(module.hot){module.hot.accept('./application.jsx', render);}

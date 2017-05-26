@@ -1,1 +1,2 @@
-# react screen gird
+# react starter
+* todo: summary questions when develop.

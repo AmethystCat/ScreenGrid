@@ -11,10 +11,10 @@ const store = createStore({
 
 export default class Test extends React.Component {
   render() {
-    return (
-    	<Provider store={store}>
-    		<Home/>
-    	</Provider>
-    );
+      return (
+          <Provider store={store}>
+              <Home/>
+          </Provider>
+      );
   }
 }

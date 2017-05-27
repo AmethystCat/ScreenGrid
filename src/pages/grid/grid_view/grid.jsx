@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class Grid extends React.Component {
     render() {
         return (
-            <div>grid</div>
+            <div className="grid-main">grid</div>
         );
     }
 }

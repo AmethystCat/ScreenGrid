@@ -6,7 +6,7 @@ import Grid from './grid';
 class GridView extends React.Component {
     render() {
         return (
-            <div className="gird-w">
+            <div className="grid-w">
                 <Condition />
                 <Grid />
             </div>

@@ -1,7 +1,44 @@
+.heightP100() {
+	height: 100%;
+}
+html,
+body,
+.app,
+.grid-container,
+.grid-w,
+.logs-w{.heightP100;}
 body {
+	margin: 0;
+	padding: 0;
 	background: olive;
 	color: #fff;
-	font-size: 34px;
 	font-weight: bold;
 	text-align: center;
+}
+.grid-container {
+	position: relative;
+	border: 1px solid #fff;
+	.grid-w {
+		padding-right: 210px;
+		.condition-w {
+			height: 50px;
+			text-align: left;
+			border: 1px solid blueviolet;
+		}
+		.grid-main {
+			margin-top: 10px;
+			border: 1px solid blue;
+		}
+	}
+	.logs-w {
+		position: absolute;
+		width: 200px;
+      	.heightP100;
+		right: 0;
+		top: 0;
+		background: skyblue;
+		ul {
+			list-style: none;
+		}
+	}
 }

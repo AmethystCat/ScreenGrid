@@ -7,7 +7,7 @@ const store = createStore({
     name: 1,
     list: [],
     attr: {},
-    logs: []
+    logs: ['test', 'test2']
 });
 
 export default class Test extends React.Component {

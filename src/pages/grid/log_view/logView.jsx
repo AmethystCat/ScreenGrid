@@ -5,7 +5,7 @@ import Ul from './ul';
 class LogView extends React.Component {
     render() {
         return (
-            <div className="log-w">
+            <div className="logs-w">
                 <Ul list={this.props.logs}/>
             </div>
         );

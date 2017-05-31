@@ -33,6 +33,21 @@ body {
 			margin-top: 10px;
           	.testBorder;
 		}
+		table {
+			td {
+				&:not(:first-child) {
+					background: skyblue;
+					width: 21px;
+					height: 21px;
+					border-radius: 3px;
+					cursor: grab;
+					cursor: -webkit-grab;
+						&:hover {
+							background: #87eba6;
+						}
+				}
+			}
+		}
 	}
 	.logs-w {
       	.testBorder;

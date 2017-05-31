@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TableHead from './tableHead';
-import TableBody from './tableBody';
+import Thead from './tableHead';
+import Tbody from './tableBody';
 
 export class Grid extends React.Component {
     render() {
-    console.log(this.props.tableHead);
         return (
             <div className="grid-main">
-                asdlfkj
             	<table>
-            		<TableHead data={this.props.tableHead}/>
-            		<TableBody data={this.props.tableBody}/>
+            		<Thead data={this.props.tableHead} />
+            		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>
             </div>
         );
@@ -19,10 +17,9 @@ export class Grid extends React.Component {
 }
 
 let mapStateTpProps = (state) => {
-    console.log(state);
 	return {
-		tableHead: state.tableHead,
-		tableBody: state.tableBody
+		tableHead: state.OutputShow,
+		tableBody: state.InputShow
 	};
 };
 

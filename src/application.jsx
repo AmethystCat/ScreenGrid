@@ -4,9 +4,12 @@ import createStore from './store/create-store';
 import Home from './pages/home';
 
 const store = createStore({
-    matrixData: [],
-    tableHead: [123],
-    tableBody: [123],
+    matrixInput: [{id: 'i-1'}, {id: 'i-2'}, {id: 'i-3'}],
+    matrixOutput: [{id: 'o-1'}, {id: 'o-2'}, {id: 'o-3'}],
+    InputShow: [{id: 'i-1'}, {id: 'i-2'}, {id: 'i-3'}],
+    OutputShow: [{id: 'o-1'}, {id: 'o-2'}, {id: 'o-3'}],
+
+    connections: [],
 
     limitRow: 50,
     limitCol: 40,
@@ -23,9 +26,6 @@ const store = createStore({
         lastX: 0,
         lastY: 0
     },
-
-    lastClientX: 0,
-    lastClientY: 0,
     
     logs: ['test', 'test2']
 });

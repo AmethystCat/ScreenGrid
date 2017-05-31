@@ -1,31 +1,89 @@
-import {ADD_ATTR, ADD_LIST, ADD_LOG, ADD_NAME} from '../action/action-types';
+import {ADD_LOG} from '../action/action-types';
 
-export function name(state = '', action) {
+export function matrixInput(state = [], action) {
 	switch (action.type) {
-		case ADD_NAME:
-			return action.name;
 		default:
 			return state;
 	}
 }
 
-export function list(state = [], action) {
+export function matrixOutput(state = [], action) {
 	switch (action.type) {
-		case ADD_LIST:
-			return state.concat(action.list);
-		default: 
+		default:
 			return state;
 	}
 }
 
-export function attr(state = {}, action) {
-	let {attr} = action;
+export function InputShow(state = [], action) {
 	switch (action.type) {
-		case ADD_ATTR:
-			return {
-				...state,
-				attr
-			};
+		default:
+			return state;
+	}
+}
+
+export function OutputShow(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function connections(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function limitRow(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function limitCol(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function scene(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function currentScene(state = '', action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function matrixName(state = [], action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function currentMatrixName(state = '', action) {
+	switch (action.type) {
+		default:
+			return state;
+	}
+}
+
+export function coordinate(state = {
+		startX: 0,
+	    startY: 0,
+	    lastX: 0,
+	    lastY: 0
+	}, action) {
+	switch (action.type) {
 		default:
 			return state;
 	}

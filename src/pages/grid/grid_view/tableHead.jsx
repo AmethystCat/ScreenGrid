@@ -5,7 +5,12 @@ export class Thead extends React.Component {
     render() {
         return (
             <thead>
-            	{this.props.data}
+            	<tr>
+            		<th></th>
+	            	{this.props.data.map((el, index) => {
+	            		return <th key={index}>{el.id}</th>;	
+	            	})}
+	            </tr>
             </thead>
         );
     }

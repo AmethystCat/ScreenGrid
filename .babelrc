@@ -6,6 +6,9 @@
     	},
     	"production": {
     		"plugins": ["transform-react-constant-elements"]
+    	},
+    	"test": {
+    		"presets": ["env", "stage-2", "react"]
     	}
     }
 }

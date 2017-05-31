@@ -4,8 +4,6 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import {jsdom} from 'jsdom';
-let exposedProperties = ['window', 'navigator', 'document'];
-
 
 chai.use(chaiEnzyme());
 

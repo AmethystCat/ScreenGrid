@@ -1,12 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TableHead from './tableHead';
+import TableBody from './tableBody';
 
-class Grid extends React.Component {
+export class Grid extends React.Component {
     render() {
+    console.log(this.props.tableHead);
         return (
-            <div className="grid-main">grid</div>
+            <div className="grid-main">
+                asdlfkj
+            	<table>
+            		<TableHead data={this.props.tableHead}/>
+            		<TableBody data={this.props.tableBody}/>
+            	</table>
+            </div>
         );
     }
 }
 
-export default connect()(Grid);
+let mapStateTpProps = (state) => {
+    console.log(state);
+	return {
+		tableHead: state.tableHead,
+		tableBody: state.tableBody
+	};
+};
+
+export default connect(mapStateTpProps)(Grid);

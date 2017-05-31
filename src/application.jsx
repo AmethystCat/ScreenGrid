@@ -4,9 +4,29 @@ import createStore from './store/create-store';
 import Home from './pages/home';
 
 const store = createStore({
-    name: 1,
-    list: [],
-    attr: {},
+    matrixData: [],
+    tableHead: [123],
+    tableBody: [123],
+
+    limitRow: 50,
+    limitCol: 40,
+
+    scene: [],
+    currentScene: '',
+
+    matrixName:[],
+    currentMatrixName: '',
+
+    coordinate: {
+        startX: 0,
+        startY: 0,
+        lastX: 0,
+        lastY: 0
+    },
+
+    lastClientX: 0,
+    lastClientY: 0,
+    
     logs: ['test', 'test2']
 });
 

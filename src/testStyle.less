@@ -34,14 +34,21 @@ body {
           	.testBorder;
 		}
 		table {
+			cursor: grab;
+			cursor: -webkit-grab;
+			user-select: none;
 			td {
+				@w: 20px;
+				@h: 20px;
+				&:first-child {
+					text-align: right;
+					padding: 0 5px 0 10px;
+				}
 				&:not(:first-child) {
 					background: skyblue;
-					width: 21px;
-					height: 21px;
+					width: @w;
+					height: @h;
 					border-radius: 3px;
-					cursor: grab;
-					cursor: -webkit-grab;
 						&:hover {
 							background: #87eba6;
 						}

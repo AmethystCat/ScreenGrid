@@ -1,48 +1,59 @@
 import {ADD_LOG} from '../action/action-types';
 
-export function matrixInput(state = [], action) {
+export function matrixOriginData(state = {}, action) {
 	switch (action.type) {
 		default:
 			return state;
 	}
 }
 
-export function matrixOutput(state = [], action) {
+export function matrixShown(state = {input: [], output: []}, action) {
 	switch (action.type) {
+		case 'init':
+			let matrix = action.matrixObj;
+			let section = matrix.section;
+			let originData = matrix.originData;
+			let newState = {
+					...state,
+					input: originData.matrixInput.slice(section.row[0], section.row[1]),
+					output: originData.matrixOutput.slice(section.col[0], section.col[1])
+				};
+			return newState;
 		default:
 			return state;
 	}
 }
 
-export function InputShow(state = [], action) {
+export function matrixSection(state = {row: [0, 0], col: [0, 0]}, action) {
 	switch (action.type) {
-		default:
-			return state;
-	}
-}
+		case 'setSection':
+			let givenSection = action.givenSection,
+				rowSection = state.row,
+				colSection = state.col;
+			let updatedRowSectionStart = (rowSection[0] + givenSection.row),
+				updatedRowSectionEnd = (rowSection[1] + givenSection.row),
+				updatedColSectionStart = (colSection[0] + givenSection.col),
+				updatedColSectionEnd = (colSection[1] + givenSection.col);
 
-export function OutputShow(state = [], action) {
-	switch (action.type) {
+			let finalRowSectionStart = (updatedRowSectionStart > 0) && updatedRowSectionStart || 0;
+
+			let finalRowSectionEnd = (updatedRowSectionEnd > 0) && updatedRowSectionEnd || rowSection[1];
+
+			let finalColSectionStart = (updatedColSectionStart > 0) && updatedColSectionStart || 0;
+
+			let finalColSectionEnd = (updatedColSectionEnd > 0) && updatedColSectionEnd || colSection[1];
+
+			let newState = {
+					row: [finalRowSectionStart, finalRowSectionEnd],
+					col: [finalColSectionStart, finalColSectionEnd]
+				};
+			return newState;
 		default:
 			return state;
 	}
 }
 
 export function connections(state = [], action) {
-	switch (action.type) {
-		default:
-			return state;
-	}
-}
-
-export function limitRow(state = [], action) {
-	switch (action.type) {
-		default:
-			return state;
-	}
-}
-
-export function limitCol(state = [], action) {
 	switch (action.type) {
 		default:
 			return state;
@@ -77,13 +88,14 @@ export function currentMatrixName(state = '', action) {
 	}
 }
 
-export function coordinate(state = {
-		startX: 0,
-	    startY: 0,
-	    lastX: 0,
-	    lastY: 0
-	}, action) {
+export function coordinate(state = { startX: 0, startY: 0, lastX: 0, lastY: 0 }, action) {
 	switch (action.type) {
+		case 'setCoordinate':
+			let newState = {
+				...state,
+				...action.coordinate
+			};
+			return newState;
 		default:
 			return state;
 	}

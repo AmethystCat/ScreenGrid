@@ -1,30 +1,30 @@
-import {ADD_ATTR, ADD_LIST, ADD_LOG, ADD_NAME} from '../action/action-types';
-const add_name = (name) => {
+import {ADD_LOG} from '../action/action-types';
+const initMatrixShown = (matrixObj) => {
 	return {
-		type: ADD_NAME,
-		name
+		type: 'init',
+		matrixObj
 	};
 };
 
-const add_list = (item) => {
-	return {
-		type: ADD_LIST,
-		item
-	};
-};
-
-const add_attr = (attr) => {
-	return {
-		type: ADD_ATTR,
-		attr
-	};
-};
-
-const add_log = (log) => {
+const addLog = (log) => {
 	return {
 		type: ADD_LOG,
 		log
 	};
 };
 
-export default {add_name, add_list, add_attr, add_log};
+const setCoordinate = (coordinate) => {
+	return {
+		type: 'setCoordinate',
+		coordinate
+	};
+};
+
+const setSection = (givenSection, matrixOriginData) => {
+	return {
+		type: 'setSection',
+		givenSection,
+		matrixOriginData
+	};
+};
+export default {initMatrixShown, addLog, setCoordinate, setSection};

@@ -30,13 +30,16 @@ body {
           	.testBorder;
 		}
 		.grid-main {
+			position: relative;
 			margin-top: 10px;
+			min-height: 555px;
           	.testBorder;
 		}
 		table {
 			cursor: grab;
 			cursor: -webkit-grab;
 			user-select: none;
+			th {font-size: 14px;}
 			td {
 				@w: 20px;
 				@h: 20px;
@@ -44,8 +47,10 @@ body {
 					min-width: @w * 4;
 					padding: 0 5px 0 10px;
 					text-align: right;
+					font-size: 14px;
 				}
 				&:not(:first-child) {
+					padding: 0;
 					background: skyblue;
 					width: @w;
 					height: @h;
@@ -54,6 +59,25 @@ body {
 							background: #87eba6;
 						}
 				}
+			}
+		}
+		.floatingLayer-w {
+			@s: 20px;
+			.layer-item {
+				position: absolute;
+			    background: rgba(255, 0, 0, 0.48);
+			}
+			.f-x {
+				height: @s;
+				width: 100%;
+				left: 0;
+				top: 88px;
+			}
+			.f-y {
+				height: 100%;
+				width: @s;
+				left: 155px;
+				top: 0;
 			}
 		}
 	}

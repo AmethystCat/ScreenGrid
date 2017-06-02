@@ -52,7 +52,10 @@ export class Grid extends React.Component {
 	mouseUpHandler = (e) => {
 		let coordinate = this.getCurrentMouseCoordinate(e);
 		this.setCoordinate({lastX: coordinate.x, lastY: coordinate.y});
-		this.refreshMatrix();
+		// 原理同 27行
+		setTimeout(() => {
+			this.refreshMatrix();
+		}, 0);
 	}
 
     render() {

@@ -28,20 +28,47 @@ export function matrixSection(state = {row: [0, 0], col: [0, 0]}, action) {
 	switch (action.type) {
 		case 'setSection':
 			let givenSection = action.givenSection,
+				matrixOriginData = action.matrixOriginData,
+
 				rowSection = state.row,
-				colSection = state.col;
+				colSection = state.col,
+				
+				rowLen = matrixOriginData.matrixInput.length,
+				colLen = matrixOriginData.matrixOutput.length;
+
+			let limitRowNum = state.row[1] - state.row[0];
+			let limitColNum = state.col[1] - state.col[0];
+
 			let updatedRowSectionStart = (rowSection[0] + givenSection.row),
 				updatedRowSectionEnd = (rowSection[1] + givenSection.row),
+
 				updatedColSectionStart = (colSection[0] + givenSection.col),
 				updatedColSectionEnd = (colSection[1] + givenSection.col);
 
-			let finalRowSectionStart = (updatedRowSectionStart > 0) && updatedRowSectionStart || 0;
+			let finalRowSectionStart = updatedRowSectionStart,
+				finalRowSectionEnd = updatedRowSectionEnd,
+				finalColSectionStart = updatedColSectionStart,
+				finalColSectionEnd = updatedColSectionEnd;
 
-			let finalRowSectionEnd = (updatedRowSectionEnd > 0) && updatedRowSectionEnd || rowSection[1];
+			if (updatedRowSectionStart <= 0) {
+				finalRowSectionStart = 0;
+				finalRowSectionEnd = 0 + limitRowNum;
+			}
 
-			let finalColSectionStart = (updatedColSectionStart > 0) && updatedColSectionStart || 0;
+			if (updatedColSectionStart <= 0) {
+				finalColSectionStart = 0;
+				finalColSectionEnd = 0 + limitColNum;
+			}
 
-			let finalColSectionEnd = (updatedColSectionEnd > 0) && updatedColSectionEnd || colSection[1];
+			if(updatedRowSectionEnd > rowLen) {
+				finalRowSectionEnd = rowLen;
+				finalRowSectionStart = rowLen - limitRowNum;
+			}
+
+			if (updatedColSectionEnd > colLen) {
+				finalColSectionEnd = colLen;
+				finalColSectionStart = colLen - limitColNum;
+			}
 
 			let newState = {
 					row: [finalRowSectionStart, finalRowSectionEnd],

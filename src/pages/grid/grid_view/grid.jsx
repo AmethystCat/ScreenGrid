@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actionCreators from '../../../action/action-creator';
-import Thead from './tableHead';
-import Tbody from './tableBody';
+import Thead from './table-head';
+import Tbody from './table-body';
+import HoverFloatingLayer from './floating-layer';
 
 export class Grid extends React.Component {
 	componentWillMount() {
@@ -65,6 +66,7 @@ export class Grid extends React.Component {
             		<Thead data={this.props.tableHead} />
             		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>
+            	<HoverFloatingLayer />
             </div>
         );
     }

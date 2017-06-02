@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import GridView from './grid_view/index';
-import LogView from './log_view/logView';
+import LogView from './log_view/log-view';
 
 class Container extends React.Component {
     render() {

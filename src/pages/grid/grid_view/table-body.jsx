@@ -14,15 +14,15 @@ export class Tbody extends React.Component {
 
     mouseOverHandler = (e) => {
         if (e.target.cellIndex === 0 || !this.props.isShowLayer) return;
-        
+        let table = document.getElementById('table');
         let fx = document.getElementById('fx'),
             fy = document.getElementById('fy');
         // 格子之间的间隔由td的border来控制，因为border-collapse合并，两行之间的宽度即为td的border宽度，
         // 即实际一个td边框的宽度只取设定好的border一半的宽度，
         // 所以浮层也只取一半的偏移量
         let tdBorder = 6;
-        fx.style.top = e.target.offsetTop + tdBorder/2 + 'px';
-        fy.style.left = e.target.offsetLeft + tdBorder/2 + 'px';
+        fx.style.top = e.target.offsetTop + table.offsetTop + tdBorder/2 + 'px';
+        fy.style.left = e.target.offsetLeft + table.offsetTop + tdBorder/2 + 'px';
     }
 
     mouseEnterHandler = () => {

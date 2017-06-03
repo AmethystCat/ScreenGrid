@@ -22,7 +22,7 @@ export class Tbody extends React.Component {
         // 所以浮层也只取一半的偏移量
         let tdBorder = 6;
         fx.style.top = e.target.offsetTop + table.offsetTop + tdBorder/2 + 'px';
-        fy.style.left = e.target.offsetLeft + table.offsetTop + tdBorder/2 + 'px';
+        fy.style.left = e.target.offsetLeft + table.offsetLeft + tdBorder/2 + 'px';
     }
 
     mouseEnterHandler = () => {

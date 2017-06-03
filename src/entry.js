@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './application.jsx';
 import { AppContainer } from 'react-hot-loader';
 
-import './testStyle.less';
+import './assets/style.less';
 
 const render = () => {
 	ReactDOM.render(

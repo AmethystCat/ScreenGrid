@@ -8,7 +8,7 @@ export class Thead extends React.Component {
             	<tr>
             		<th></th>
 	            	{this.props.data.map((el, index) => {
-	            		return <th key={index} data-id={el.id} width={16}>{el.name}</th>;	
+	            		return <th key={index} width={20}>{el.name}</th>;	
 	            	})}
 	            </tr>
             </thead>

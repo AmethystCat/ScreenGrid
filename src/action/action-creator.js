@@ -27,4 +27,11 @@ const setSection = (givenSection, matrixOriginData) => {
 		matrixOriginData
 	};
 };
-export default {initMatrixShown, addLog, setCoordinate, setSection};
+
+const showLayer = (show) => {
+	return {
+		type: 'showLayer',
+		show
+	};
+};
+export default {initMatrixShown, addLog, setCoordinate, setSection, showLayer};

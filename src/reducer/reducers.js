@@ -128,6 +128,15 @@ export function coordinate(state = { startX: 0, startY: 0, lastX: 0, lastY: 0 },
 	}
 }
 
+export function showLayer(state = false, action) {
+	switch (action.type) {
+		case 'showLayer':
+			return action.show;
+		default:
+			return state;
+	}
+}
+
 export function logs(logs = [], action) {
 	let {log} = action;
 	switch (action.type) {

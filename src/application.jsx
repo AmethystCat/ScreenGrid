@@ -47,8 +47,8 @@ const store = createStore({
         output: []
     },
     matrixSection: {
-        row: [0, 6],
-        col: [0, 6]
+        row: [0, 8],
+        col: [0, 8]
     },
     connections: [],
 
@@ -65,6 +65,7 @@ const store = createStore({
         lastY: 0
     },
     
+    showLayer: false,
     logs: ['test', 'test2']
 });
 

@@ -6,8 +6,8 @@ class Condition extends React.Component {
     render() {
         return (
             <div className="condition-w">
-                <Select placeholder="请选择场景" />
-                <Select placeholder="请选择矩阵名" />
+                <span>场景</span><Select placeholder="请选择场景" />
+                <span>矩阵名</span><Select placeholder="请选择矩阵名" />
             </div>
         );
     }

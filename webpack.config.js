@@ -1,9 +1,20 @@
 let path = require('path'),
     webpack = require('webpack'),
+    figlet = require('figlet'),
     env = process.env.NODE_ENV;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 console.log(env);
-console.log('-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_超华丽的分割线-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
+// 生成注释图案 哈哈
+figlet('Big Screen', {
+    verticalLayout: 'fitted'
+}, function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
 
 /**
  * 自定义ip ，并启动服务
@@ -96,7 +107,12 @@ const config_dev = {
         hot: true,
         inline: true,
         contentBase: path.resolve(__dirname, 'build'),
-        publicPath: '/'
+        publicPath: '/',
+        proxy: {
+            '/systemManage': 'http://localhost:3000',
+            '/operation': 'http://localhost:3000',
+            '/internal': 'http://localhost:3000',
+        }
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
@@ -108,56 +124,6 @@ const config_dev = {
         new webpack.NamedModulesPlugin()
     ]
 };
-
-// test the config
-// const config_dev = {
-//     entry: {
-//         index: [
-//             'react-hot-loader/patch',
-//             'webpack-dev-server/client?http://10.0.0.124:8080',
-//             'webpack/hot/only-dev-server',
-//             path.resolve(__dirname, 'src/entry.js')
-//         ]
-//     },
-//     output: {
-//         filename: 'js/[name].js',
-//         path: path.resolve(__dirname, 'build'),
-//         publicPath: '/'
-//     },
-//     module: {
-//         rules: [
-//             {
-//                 test: /\.jsx?$/,
-//                 enforce: 'pre',
-//                 use: ['eslint-loader']
-//             },
-//             {
-//                 test: /\.(js|jsx)$/,
-//                 use: ['babel-loader'],
-//                 include: [path.resolve(__dirname, 'src')],
-//                 exclude: [path.resolve(__dirname, 'node_modules')]
-//             }
-//         ]
-//     },
-//     context: path.resolve(__dirname, 'src'),
-//     devServer: {
-//         host: '10.0.0.124',
-//         hot: true,
-//         inline: true,
-//         contentBase: path.resolve(__dirname, 'build'),
-//         publicPath: '/'
-//     },
-//     plugins: [
-//             new webpack.NoErrorsPlugin(),
-//             new webpack.NamedModulesPlugin(),
-//             new webpack.HotModuleReplacementPlugin(),
-//             // new webpack.optimize.CommonsChunkPlugin({
-//             //     name: 'vendors', 
-//             //     filename: 'js/vendors.js'
-//             // })
-//         ]
-// };
-// var config_prod = {};
 
 // production
 const config_prod = {

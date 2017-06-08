@@ -28,10 +28,17 @@ const setSection = (givenSection, matrixOriginData) => {
 	};
 };
 
-const showLayer = (show) => {
+const showLayer = (show = false) => {
 	return {
 		type: 'showLayer',
 		show
 	};
 };
-export default {initMatrixShown, addLog, setCoordinate, setSection, showLayer};
+
+const showLoading = (show = true) => {
+	return {
+		type: 'showLoading',
+		show
+	};
+};
+export default {initMatrixShown, addLog, setCoordinate, setSection, showLayer, showLoading};

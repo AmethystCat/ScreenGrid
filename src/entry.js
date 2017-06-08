@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './application.jsx';
 import { AppContainer } from 'react-hot-loader';
 
-import './assets/style.less';
+import 'babel-polyfill';
+import './assets/style/index.less';
 
 const render = () => {
 	ReactDOM.render(

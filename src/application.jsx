@@ -53,10 +53,10 @@ const store = createStore({
     connections: [],
 
     scene: [],
-    currentScene: '',
+    currentScene: {},
 
     matrixName:[],
-    currentMatrixName: '',
+    currentMatrixName: {},
 
     coordinate: {
         startX: 0,
@@ -65,6 +65,7 @@ const store = createStore({
         lastY: 0
     },
     
+    showLoading: false,
     showLayer: false,
     logs: ['test', 'test2']
 });

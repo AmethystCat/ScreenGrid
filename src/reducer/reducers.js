@@ -94,7 +94,7 @@ export function scene(state = [], action) {
 	}
 }
 
-export function currentScene(state = '', action) {
+export function currentScene(state = {}, action) {
 	switch (action.type) {
 		default:
 			return state;
@@ -108,7 +108,7 @@ export function matrixName(state = [], action) {
 	}
 }
 
-export function currentMatrixName(state = '', action) {
+export function currentMatrixName(state = {}, action) {
 	switch (action.type) {
 		default:
 			return state;
@@ -131,6 +131,15 @@ export function coordinate(state = { startX: 0, startY: 0, lastX: 0, lastY: 0 },
 export function showLayer(state = false, action) {
 	switch (action.type) {
 		case 'showLayer':
+			return action.show;
+		default:
+			return state;
+	}
+}
+
+export function showLoading(state = true, action) {
+	switch (action.type) {
+		case 'showLoading':
 			return action.show;
 		default:
 			return state;

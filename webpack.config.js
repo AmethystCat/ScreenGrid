@@ -3,19 +3,6 @@ let path = require('path'),
     figlet = require('figlet'),
     env = process.env.NODE_ENV;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-console.log(env);
-// 生成注释图案 哈哈
-figlet('Big Screen', {
-    verticalLayout: 'fitted'
-}, function(err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(data)
-});
-
 /**
  * 自定义ip ，并启动服务
  * export TEST_URL=xxxxx && yarn start
@@ -31,15 +18,31 @@ const getUrl = (() => {
     // console.log(process.argv);
     let defaultUrl = 'http://localhost:8080';
     if (argv) return `http://${argv}`;
-    else return defaultUrl;
+    return defaultUrl;
 })();
 
 const getHost = ((url) => {
     return url.split(':')[1].split('//')[1];
 })(getUrl);
 
-console.log(getUrl);
-console.log(getHost);
+// let proxyServer = 'http://192.168.31.141:8080';
+let proxyServer = 'http://localhost:3000';
+
+// 生成注释图案 哈哈
+figlet('Big Screen', {
+    verticalLayout: 'fitted'
+}, function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data);
+    console.log('---------------------------------------------------------');
+    console.log('node_env   : ', env);
+    console.log('default_url: ', getUrl);
+    console.log('---------------------------------------------------------');
+});
 
 // dev
 const config_dev = {
@@ -108,9 +111,7 @@ const config_dev = {
         contentBase: path.resolve(__dirname, 'build'),
         publicPath: '/',
         proxy: {
-            '/systemManage': 'http://localhost:3000',
-            '/operation': 'http://localhost:3000',
-            '/internal': 'http://localhost:3000',
+            '/icmc': proxyServer,
         }
     },
     plugins: [

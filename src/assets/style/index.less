@@ -1,7 +1,7 @@
 @import url(./loading);
 /*component*/
 .heightP100() {height: 100%;}
-.testBorder {border: 1px solid #fff;}
+.testBorder {border: 1px solid #ccc;}
 .hide {display: none;}
 /*end*/
 
@@ -14,37 +14,64 @@ body,
 body {
 	margin: 0;
 	padding: 10px;
-	background: olive;
-	color: #fff;
+	background: #000558;
+	color: #00d1ff;
 	font-weight: bold;
 	text-align: center;
 	box-sizing: border-box;
+	//font-family: "微软雅黑";
 }
 .grid-container {
 	position: relative;
 	.grid-w {
-		padding-right: 210px;
+		padding-right: 300px;
 		.condition-w {
 			height: 50px;
+			line-height: 50px;
 			text-align: left;
-          	.testBorder;
+          	//.testBorder;
+			select {
+				//padding: 0;
+				margin: 0 30px 0 10px;
+				width: 180px;
+				height: 30px;
+				padding-left: 5px;
+				border: 1px solid #0c7af5;
+				background-color: #000;
+				outline: none;
+				color: #00ffff;
+				font-size: 14px;
+			}
+			span:first-child{
+				margin-left: 20px;
+			}
 		}
 		.grid-main {
 			position: relative;
 			margin-top: 10px;
-			min-height: 555px;
-          	.testBorder;
+			min-height: 91%;
+          	//.testBorder;
+			background: url("image/control-content.png") no-repeat;
+			background-size: 100% 100%;
+			overflow: hidden;
 		}
 		table {
 			position: relative;
 			z-index: 0;
+			margin-top: 50px;
+			margin-left: 30px;
 			cursor: grab;
 			cursor: -webkit-grab;
 			user-select: none;
-		    border-collapse: collapse;
+			font-size: 14px;
+			th {
+				font-weight: 100;
+				line-height: 1.2;
+			}
 			td {
 				@w: 20px;
 				@h: 20px;
+				font-weight: 100;
 				&:first-child {
 					min-width: @w * 4;
 					padding: 0 5px 0 10px;
@@ -52,11 +79,10 @@ body {
 				}
 				&:not(:first-child) {
 					padding: 0;
-					background: skyblue;
+					background: #0a6ad9;
 					width: @w;
 					height: @h;
-					// border-radius: 12px;
-					border: 6px solid olive;
+					border-radius: 2px;
 						&:hover {
 							background: #87eba6;
 						}
@@ -68,7 +94,8 @@ body {
 			.layer-item {
 				position: absolute;
 				z-index: 0;
-			    background: rgba(255, 0, 0, 0.48);
+				border:1px solid #02F602;
+			    background: rgba(2, 246, 2, 0.3);
 			    pointer-events: none;
 			}
 			.f-x {
@@ -86,18 +113,41 @@ body {
 		}
 	}
 	.logs-w {
-      	.testBorder;
+      	//.testBorder;
 		position: absolute;
-		width: 200px;
-      	.heightP100;
+		width: 285px;
+      	height: 91%;
 		right: 0;
-		top: 0;
+		top: 60px;
 		box-sizing: border-box;
 		overflow-y: auto;
+		background: url("image/daping-setting.png") no-repeat;
+		background-size: 100% 100%;
+		.logs-title {
+			padding: 30px 5px 18px;
+			font-size: 22px;
+		}
+		.logs-border {
+			margin: auto;
+			width: 80%;
+			height: 5px;
+			border-top: 1px solid;
+			border-bottom: 1px solid;
+		}
 		ul {
-			margin: 0;
+			//margin: 0;
 			padding-left: 0;
 			list-style: none;
+			font-size: 16px;
+			li {
+				padding: 0 20px;
+				line-height: 30px;
+				font-size: 16px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				cursor: pointer;
+			}
 		}
 	}
 }

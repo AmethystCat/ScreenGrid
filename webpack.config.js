@@ -106,6 +106,7 @@ const config_dev = {
     },
     devServer: {
         host: getHost,
+        port: 3000,
         hot: true,
         inline: true,
         contentBase: path.resolve(__dirname, 'build'),

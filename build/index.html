@@ -3,10 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hello react</title>
+	<link rel="stylesheet" href="volume.css">
 </head>
 <body>
-	<div id="app"class="app"></div>
+	<div id="app" class="app"></div>
+	<button>点我</button>
 </body>
+<script src="jquery.min.js"></script>
 <script src="/js/vendors.js"></script>
 <script src="/js/index.js"></script>
+<script src="volume-layer.js"></script>
+<script>
+	$('button').click(function(){
+		openVolumeLayer('123','2434',true,10,100,0,$(this),'nnnn',function(){
+			alert(11)
+		});
+//		layerAlert('删除成功',1,function(){
+//			setTimeout(function(){
+//				$('.layer-infor').remove();
+//			},1000);
+//		});
+	})
+</script>
 </html>

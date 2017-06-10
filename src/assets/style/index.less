@@ -51,7 +51,7 @@ body {
 			margin-top: 10px;
 			min-height: 91%;
           	//.testBorder;
-			background: url("image/control-content.png") no-repeat;
+			background: url("../image/control-content.png") no-repeat;
 			background-size: 100% 100%;
 			overflow: hidden;
 		}
@@ -64,6 +64,7 @@ body {
 			cursor: -webkit-grab;
 			user-select: none;
 			font-size: 14px;
+			border-collapse: collapse;
 			th {
 				font-weight: 100;
 				line-height: 1.2;
@@ -83,6 +84,7 @@ body {
 					width: @w;
 					height: @h;
 					border-radius: 2px;
+					border: 6px solid #000558;
 						&:hover {
 							background: #87eba6;
 						}
@@ -97,6 +99,7 @@ body {
 				border:1px solid #02F602;
 			    background: rgba(2, 246, 2, 0.3);
 			    pointer-events: none;
+			    box-sizing: border-box;
 			}
 			.f-x {
 				height: @s;
@@ -120,7 +123,8 @@ body {
 		right: 0;
 		top: 60px;
 		box-sizing: border-box;
-		background: url("image/daping-setting.png") no-repeat;
+		overflow-y: auto;
+		background: url("../image/daping-setting.png") no-repeat;
 		background-size: 100% 100%;
 		.logs-title {
 			padding: 30px 5px 18px;

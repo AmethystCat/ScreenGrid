@@ -7,9 +7,13 @@ import Tbody from './table-body';
 import HoverFloatingLayer from './floating-layer';
 
 export class Grid extends React.Component {
-	componentWillMount() {
-		this.initMatrix();
-	}
+	// componentWillMount() {
+	// 	this.initMatrix(this.props);
+	// }
+
+	// componentWillReceiveProps(nextProps) {
+	// 	this.initMatrix(nextProps);
+	// }
 
 	initMatrix = () => {
 		const { matrixOriginData, matrixSection, initMatrixShown } = this.props;

@@ -1,18 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import actionCreators from '../action/action-creator';
 import Container from './grid/container';
-import axios from 'axios';
 
 class Home extends React.Component {
 	componentDidMount() {
-		console.log(123);
-		axios.get('/systemManage/scene/sceneList')
-		.then(response => response.data)
-		.then(data=>{console.log(data);});
+		this.props.initRequest();
 	}
 	render() {
 		return (<Container />);
 	}
 }
 
-export default connect()(Home);
+let mapStateToProps = (state) => {
+	return {
+		scene: state.scene
+	};
+};
+
+let mapDispatchToProps = (dispatch) => (bindActionCreators(actionCreators, dispatch));
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

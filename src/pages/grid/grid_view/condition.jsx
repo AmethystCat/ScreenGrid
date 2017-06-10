@@ -5,6 +5,16 @@ import actionCreators from '../../../action/action-creator';
 import Select from './condition-select';
 
 class Condition extends React.Component {
+	changeScene = (e, sceneId) => {
+		console.log(e.target.value);
+		console.log(sceneId);
+		sceneId === 'scene' && this.props.changeScene(e.target.value);
+	}
+	changeMatrix = (e, matrixId) => {
+		matrixId === 'matrix' && this.props.changeMatrix(e.target.value);
+		console.log(e.target.value);
+		console.log(matrixId);
+	}
     render() {
     	let {scene, currentScene, matrixName, currentMatrixName} = this.props;
         return (
@@ -15,13 +25,16 @@ class Condition extends React.Component {
                 	id={'scene'} 
                 	data={scene} 
                 	current={currentScene}
+                	changeHandler={this.changeScene}
                 	/> 
 		<span>矩阵名</span>
                 <Select 
                 	placeholder="请选择矩阵名" 
-                	id={'matrixName'} 
-                	data={matrixName} 
+                	id={'matrix'} 
+                	data={matrixName}
+                	changeHandler={this.changeMatrix}
                 	current={currentMatrixName}/>
+                	
             </div>
         );
     }

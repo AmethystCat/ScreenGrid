@@ -19,4 +19,4 @@ let audio = {
 	connectionByOutUrl: '/icmc/operation/audioMatrixOperation/connectionByOut',
 	get15MatrixLogsUrl: '/icmc/internal/matrixLog/get15MatrixLogs'
 };
-export { video , audio };
+export { video, audio };

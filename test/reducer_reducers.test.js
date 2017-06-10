@@ -20,7 +20,7 @@ const matrixOriginData = {
 	        col: [0, 2]
 	    };
 
-describe('reducer测试', function() {
+describe('reducer测试->', function() {
     it('matrixShown: should_return_right_matrix_shown_data_when_input_matrix_origin_data_and_matrix_section', function(){
     	// given
     	let state = {
@@ -246,6 +246,31 @@ describe('reducer测试', function() {
 	    	let expectSection = {
 		    		row: [2, 4],
 		    		col: [0, 2]
+		    	};
+	    	// when
+	    	const actualMatrixSection = matrixSection(matrixOriginSection, action);
+	    	// then
+	    	expect(actualMatrixSection).to.eql(expectSection);
+	    });
+
+	    it('{row: [0, 8], col: [0, 9]} => {row: [0, 8], col: [0, 8]}, when givenSection = {row: -0, col: -0}', function() {
+	    	// given
+	    	let givenSection = {
+		    		row: -0,
+		    		col: -0
+		    	};
+	    	let action = {
+		    		type: 'setSection',
+		    		givenSection,
+		    		matrixOriginData
+		    	};
+	    	let matrixOriginSection = {
+			        row: [0, 8],
+			        col: [0, 8]
+			    };
+	    	let expectSection = {
+		    		row: [0, 8],
+		    		col: [0, 8]
 		    	};
 	    	// when
 	    	const actualMatrixSection = matrixSection(matrixOriginSection, action);

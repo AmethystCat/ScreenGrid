@@ -60,7 +60,7 @@ export function matrixSection(state = {row: [0, 0], col: [0, 0]}, action) {
 				finalColSectionEnd = 0 + limitColNum;
 			}
 
-			if(updatedRowSectionEnd > rowLen) {
+			if (updatedRowSectionEnd > rowLen) {
 				finalRowSectionEnd = rowLen;
 				finalRowSectionStart = rowLen - limitRowNum;
 			}
@@ -68,6 +68,16 @@ export function matrixSection(state = {row: [0, 0], col: [0, 0]}, action) {
 			if (updatedColSectionEnd > colLen) {
 				finalColSectionEnd = colLen;
 				finalColSectionStart = colLen - limitColNum;
+			}
+
+			if (limitRowNum > rowLen) {
+				finalRowSectionStart = 0;
+				finalRowSectionEnd = limitRowNum;
+			}
+
+			if (limitColNum > colLen) {
+				finalColSectionStart = 0;
+				finalColSectionEnd = limitColNum;
 			}
 
 			let newState = {

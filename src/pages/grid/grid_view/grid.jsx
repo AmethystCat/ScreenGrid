@@ -20,8 +20,8 @@ export class Grid extends React.Component {
 	refreshMatrix = () => {
 		let { coordinate, matrixOriginData } = this.props;
 		let matrixSize = 20;
-		let rowSection = Math.ceil(-(coordinate.lastY - coordinate.startY) / matrixSize);
-		let colSection = Math.ceil(-(coordinate.lastX - coordinate.startX) / matrixSize);
+		let rowSection = Math.floor(-(coordinate.lastY - coordinate.startY) / matrixSize);
+		let colSection = Math.floor(-(coordinate.lastX - coordinate.startX) / matrixSize);
 		this.props.setSection({row: rowSection, col: colSection}, matrixOriginData);
 		// 将init放入事件队列，强制位于setSection后面，防止init与setSection同时执行或者init先执行完导致状态刷新不正确，
 		// 实际redux-devtool测试中，init与setSection同时执行导致状态刷新失败。

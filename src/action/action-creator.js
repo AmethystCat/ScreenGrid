@@ -236,7 +236,7 @@ const initRequest = () => {
 			.then(scenes => {
 				if (scenes.length) {
 					let currentScene = scenes[0];
-					dispatch(changeScene(currentScene.id));
+					return dispatch(changeScene(currentScene.id));
 				}
 			})
 			.then(() => dispatch(showLoading(false)));

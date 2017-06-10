@@ -8,6 +8,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
  * export TEST_URL=xxxxx && yarn start
  * 
  */
+
+let defaultPort = 8081;
 const getUrl = (() => {
     let argv = process.env.TEST_URL;
     // process.argv.forEach((el, index) => {
@@ -16,7 +18,7 @@ const getUrl = (() => {
     //     }
     // });
     // console.log(process.argv);
-    let defaultUrl = 'http://localhost:8080';
+    let defaultUrl = `http://localhost:${defaultPort}`;
     if (argv) return `http://${argv}`;
     return defaultUrl;
 })();
@@ -25,8 +27,8 @@ const getHost = ((url) => {
     return url.split(':')[1].split('//')[1];
 })(getUrl);
 
-// let proxyServer = 'http://192.168.31.141:8080';
-let proxyServer = 'http://localhost:3000';
+let proxyServer = 'http://192.168.31.141:8080';
+// let proxyServer = 'http://localhost:3000';
 
 // 生成注释图案 哈哈
 figlet('Big Screen', {
@@ -106,6 +108,7 @@ const config_dev = {
     },
     devServer: {
         host: getHost,
+        port: defaultPort,
         hot: true,
         inline: true,
         contentBase: path.resolve(__dirname, 'build'),

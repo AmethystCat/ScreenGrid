@@ -13,6 +13,10 @@ export class Operation extends React.Component {
             <i></i>
             <span>未连接</span>
           </div>
+          <div className="connect refresh-wrap">
+            <i></i>
+            <span>刷新</span>
+          </div>
       </div>
     );
   }

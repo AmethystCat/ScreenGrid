@@ -19,3 +19,4 @@ vendors.js
 .tags_sorted_by_file
 
 .DS_store
+webpack.config.js

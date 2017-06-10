@@ -67,7 +67,7 @@ export class Grid extends React.Component {
     render() {
         return (
             <div className="grid-main">
-            	<table id="table" cellSpacing="5" onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
+            	<table id="table" onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}>
             		<Thead data={this.props.tableHead} />
             		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>

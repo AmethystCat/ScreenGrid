@@ -54,6 +54,32 @@ body {
 			background: url("../image/control-content.png") no-repeat;
 			background-size: 100% 100%;
 			overflow: hidden;
+			.operation-wrap {
+				position: absolute;
+				width: 100px;
+				height: 50px;
+				top: 50px;
+				right: 30px;
+				font-size: 12px;
+				.connect {
+					cursor: pointer;
+				}
+				i {
+					display: inline-block;
+					width: 16px;
+					height: 16px;
+					background-color: #0c7af5;
+					margin-right: 10px;
+					border-radius: 3px;
+					vertical-align: middle;
+				}
+				.connected-wrap {
+					margin-bottom: 10px;
+					i {
+						background-color: #02F602;
+					}
+				}
+			}
 		}
 		table {
 			position: relative;
@@ -83,7 +109,7 @@ body {
 					background: #0a6ad9;
 					width: @w;
 					height: @h;
-					border-radius: 2px;
+					border-radius: 12px;
 					border: 6px solid #000558;
 						&:hover {
 							background: #87eba6;

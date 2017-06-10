@@ -3,7 +3,7 @@ import React from 'react';
 function Ul(props) {
     return (<ul>
         {props.list.map((log, index) => {
-            return <li key={index}>{log}</li>;
+            return <li key={index}>{log.description}</li>;
         })}
     </ul>);
 }

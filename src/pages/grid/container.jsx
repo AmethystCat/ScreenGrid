@@ -7,7 +7,6 @@ import Loading from '../../components/loading';
 
 class Container extends React.Component {
     render() {
-    	console.log(this.props.showLoading);
         return (
             <div className="grid-container">
                 <GridView />

@@ -5,6 +5,7 @@ import actionCreators from '../../../action/action-creator';
 import Thead from './table-head';
 import Tbody from './table-body';
 import HoverFloatingLayer from './floating-layer';
+import Operation from './operation';
 
 export class Grid extends React.Component {
 	// componentWillMount() {
@@ -71,6 +72,7 @@ export class Grid extends React.Component {
             		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>
             	<HoverFloatingLayer />
+            	<Operation />
             </div>
         );
     }

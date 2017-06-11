@@ -5,9 +5,6 @@ import actionCreators from '../../../action/action-creator';
 import Thead from './table-head';
 import Tbody from './table-body';
 import HoverFloatingLayer from './floating-layer';
-import Operation from './operation';
-// import audioMute from '../../../assets/image/audio-mute.png';
-// import audioBear from '../../../assets/image/audio-bear.png';
 
 export class Grid extends React.Component {
 
@@ -66,39 +63,7 @@ export class Grid extends React.Component {
             		<Thead data={this.props.tableHead} />
             		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>
-
-				{/*<table>
-					<thead>
-						<tr>
-							<th></th>
-							<th>输出1<img src={audioMute} /><span>22</span></th>
-							<th>输出2<img src={audioMute} /><span>700</span></th>
-							<th>输出3<img src={audioMute} /><span>233</span></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>输入1<img src={audioBear}/><span>1</span></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>输入2<img src={audioBear}/><span>2</span></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>输入3<img src={audioBear}/><span>3</span></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>*/}
             	<HoverFloatingLayer />
-            	<Operation />
             </div>
         );
     }

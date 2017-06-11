@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actionCreators from '../../../action/action-creator';
+import audioBear from '../../../assets/image/audio-bear.png';
 
 export class Tbody extends React.Component {
     clickHandler = (e) => {
@@ -59,15 +60,14 @@ export class Tbody extends React.Component {
             		return <tr key={`r${index}`} onClick={this.clickHandler}>
 	            			{cols.map((col, i) => {
                                 if (i === 0) {
-                                    return <td key={0}>{row.name}</td>;
+                                    return <td key={0}>{row.name}<img src={audioBear}/><span>1</span></td>;
                                 } else {
                                     let classes = this.getIsConnectClasses(row, cols[i - 1], connections);
                                     return <td 
                                             key={`c${i}`}
                                             className={classes} 
                                             onMouseOver={this.mouseOverHandler}
-                                        >
-                                        </td>;
+                                        />;
                                 }
 	            			})}
                             {(() => {
@@ -75,7 +75,7 @@ export class Tbody extends React.Component {
                                         key={'lastTd'}
                                         className={this.getIsConnectClasses(row, cols[cols.length - 1], connections)}
                                         onMouseOver={this.mouseOverHandler}
-                                    ></td>;
+                                    />;
                             })(rows, cols, connections)} 
             			</tr>;
             	})}

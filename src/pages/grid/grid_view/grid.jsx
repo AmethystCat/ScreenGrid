@@ -6,8 +6,8 @@ import Thead from './table-head';
 import Tbody from './table-body';
 import HoverFloatingLayer from './floating-layer';
 import Operation from './operation';
-import audioMute from '../../../assets/image/audio-mute.png';
-import audioBear from '../../../assets/image/audio-bear.png';
+// import audioMute from '../../../assets/image/audio-mute.png';
+// import audioBear from '../../../assets/image/audio-bear.png';
 
 export class Grid extends React.Component {
 
@@ -67,7 +67,7 @@ export class Grid extends React.Component {
             		<Tbody cols={this.props.tableHead} rows={this.props.tableBody} />
             	</table>
 
-				<table>
+				{/*<table>
 					<thead>
 						<tr>
 							<th></th>
@@ -96,7 +96,7 @@ export class Grid extends React.Component {
 							<td></td>
 						</tr>
 					</tbody>
-				</table>
+				</table>*/}
             	<HoverFloatingLayer />
             	<Operation />
             </div>

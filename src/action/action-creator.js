@@ -225,6 +225,39 @@ const setConnections = (connections) => {
 	};
 };
 
+const getNewConnections = (originConnections = [], requestConnectionObj = {}) => {
+	let newConnections = [];
+	newConnections = originConnections.filter((connect) => {
+		return !(connect.outMatrixPort === requestConnectionObj.outPortId 
+				&& connect.inMatrixPort === requestConnectionObj.inPortId);
+	});
+	if (originConnections.length === newConnections.length) {
+		newConnections.push({outMatrixPort: requestConnectionObj.outPortId, inMatrixPort: requestConnectionObj.inPortId});
+	}
+	return newConnections;
+};
+
+const setInToOutConnect = (connectObj) => {
+	return (dispatch, getState) => {
+		// return axios.get(video.inToOutConnectUrl, {
+		// 	params: {
+		// 		videoMatrixId: connectObj.videoMatrixId,
+		// 		inPortId: connectObj.inPortId,
+		// 		outPortId: connectObj.outPortId
+		// 	}
+		// })
+		let data = {data: {success: true}};
+		return Promise.resolve(data)
+		.then(res => {
+			if (res.data.success) {
+				let connections = getState().connections;
+				let newConnections = getNewConnections(connections, connectObj);
+				dispatch(setConnections(newConnections));
+			}
+		});
+	};
+};
+
 const initRequest = () => {
 	return (dispatch) => {
 		dispatch(showLoading(true));
@@ -257,5 +290,7 @@ export default {
 	changeScene,
 	changeMatrix,
 	getConnections,
-	setConnections
+	setConnections,
+	setInToOutConnect,
+	getNewConnections
 };

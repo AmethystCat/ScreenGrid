@@ -6,10 +6,18 @@ import actionCreators from '../../../action/action-creator';
 export class Tbody extends React.Component {
     clickHandler = (e) => {
         if (e.target.cellIndex === 0) return;
-        let {rows, cols} = this.props;
+        let {rows, cols, currentMatrix, setInToOutConnect} = this.props;
         // console.log(e.nativeEvent);
         console.log('col: ', cols[e.target.cellIndex - 1]);
         console.log('row: ', rows[e.target.parentNode.rowIndex - 1]);
+        let clickedRow = rows[e.target.parentNode.rowIndex - 1],
+            clickedCol = cols[e.target.cellIndex - 1];
+        let connectObj = {
+            videoMatrixId: currentMatrix.id,
+            inPortId: clickedRow.id,
+            outPortId: clickedCol.id
+        };
+        setInToOutConnect(connectObj);
     }
 
     mouseOverHandler = (e) => {
@@ -33,16 +41,42 @@ export class Tbody extends React.Component {
         this.props.showLayer(false);
     }
 
+    getIsConnectClasses = (row, col, connections) => {
+        let isConnect = false;
+        let ouputId = col.id,
+            inputId = row.id;
+        connections.forEach((connect) => {
+            (connect.outMatrixPort === ouputId && connect.inMatrixPort === inputId) && (isConnect = true);
+        });
+        return isConnect ? 'isConnect' : '';
+    }
+
     render() {
-    	let {rows, cols} = this.props;
+    	let {rows, cols, connections} = this.props;
         return (
             <tbody onMouseEnter={this.mouseEnterHandler} onMouseLeave={this.mouseLeaveHandler}>
             	{rows.map((row, index) => {
             		return <tr key={`r${index}`} onClick={this.clickHandler}>
 	            			{cols.map((col, i) => {
-	            				return <td onMouseOver={this.mouseOverHandler} key={`c${i}`}>{i === 0 ? row.name : ''}</td>;
+                                if (i === 0) {
+                                    return <td key={0}>{row.name}</td>;
+                                } else {
+                                    let classes = this.getIsConnectClasses(row, cols[i - 1], connections);
+                                    return <td 
+                                            key={`c${i}`}
+                                            className={classes} 
+                                            onMouseOver={this.mouseOverHandler}
+                                        >
+                                        </td>;
+                                }
 	            			})}
-	            			<td onMouseOver={this.mouseOverHandler}></td> 
+                            {(() => {
+                                return <td 
+                                        key={'lastTd'}
+                                        className={this.getIsConnectClasses(row, cols[cols.length - 1], connections)}
+                                        onMouseOver={this.mouseOverHandler}
+                                    ></td>;
+                            })(rows, cols, connections)} 
             			</tr>;
             	})}
             </tbody>
@@ -52,7 +86,9 @@ export class Tbody extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isShowLayer: state.showLayer
+        isShowLayer: state.showLayer,
+        currentMatrix: state.currentMatrixName,
+        connections: state.connections
     };
 };
 

@@ -21,19 +21,22 @@ export class Operation extends React.Component {
                     inMatrixPort: res.data.data,
                     outMatrixPort: outPortId
                 };
-                let newConnections = connections.push(currentPort);
+                connections.push(currentPort);
+                let newConnections = connections;
                 this.props.setConnections(newConnections);
             }
         });
     }
 
     refresh = () => {
-        this.props.setConnections([]);
-        let {outPorts = [], currentMatrixId, connections} = this.props;
-        let promises = outPorts.map((outPort) => {
-            return this.getConnectionByOut(currentMatrixId, outPort.id, connections);
+        Promise.resolve(this.props.setConnections([]))
+        .then(() => {
+            let {outPorts = [], currentMatrixId, connections} = this.props;
+            let promises = outPorts.map((outPort) => {
+                return this.getConnectionByOut(currentMatrixId, outPort.id, connections);
+            });
+            refreshMatrix(promises);
         });
-        refreshMatrix(promises);
     };
 
     render() {

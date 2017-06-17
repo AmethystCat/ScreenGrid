@@ -131,7 +131,6 @@ const getMatrixInputAndOutputData = () => {
     return (dispatch, getState) => {
         return axios.all([getMatrixInputData(getState), getMatrixOutputData(getState)])
             .then(data => {
-                console.log(data);
                 let matrixOriginData = {
                     matrixInput: data[0].data.data,
                     matrixOutput: data[1].data.data
@@ -294,6 +293,7 @@ const initRequest = () => {
 };
 
 const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
+    console.log({audioMatrixId, portId, mute, portType, isVirtual});
     return (dispatch, getState) => {
         dispatch(showLoading(true));
         return axios.get(audio.changeMuteUrl, {

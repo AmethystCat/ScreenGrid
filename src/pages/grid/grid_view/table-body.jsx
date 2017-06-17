@@ -86,6 +86,7 @@ export class Tbody extends React.Component {
                                             <img
                                                 onClick={(e) => {
                                                     e.stopPropagation();
+                                                    console.log(isVirtual ? ('solidAudioMatrix '+row.solidAudioMatrix.id) : currentMatrix.id);
                                                     setMute({
                                                         audioMatrixId: isVirtual ? row.solidAudioMatrix.id : currentMatrix.id, 
                                                         portId: isVirtual ? row.solidPort.id : row.id,

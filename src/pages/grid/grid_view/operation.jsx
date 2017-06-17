@@ -25,11 +25,13 @@ export class Operation extends React.Component {
                 // connections.push(currentPort);
                 let newConnections = connections.map((connect) => {
                     if (connect.outMatrixPort === currentPort.outMatrixPort) {
-                        connect.inMatrixPort = currentPort.inMatrixPort;
+                        currentPort.inMatrixPort && (connect.inMatrixPort = currentPort.inMatrixPort);
                     }
                     return connect;
                 });
                 this.props.setConnections(newConnections);
+            } else {
+                alert(res.data.error);
             }
         });
     }

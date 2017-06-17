@@ -43,7 +43,7 @@ export class Tbody extends React.Component {
         this.props.showLayer(false);
     }
 
-    getIsConnectClasses = (row, col, connections) => {
+    getIsConnectClasses = (row, col, connections = []) => {
         let isConnect = false;
         let ouputId = col.id,
             inputId = row.id;
@@ -54,7 +54,7 @@ export class Tbody extends React.Component {
     }
 
     render() {
-    	let {rows, cols, connections} = this.props;
+    	let {rows, cols, connections = []} = this.props;
         return (
             <tbody onMouseEnter={this.mouseEnterHandler} onMouseLeave={this.mouseLeaveHandler}>
             	{rows.map((row, index) => {

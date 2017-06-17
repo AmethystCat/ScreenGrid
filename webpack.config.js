@@ -179,7 +179,7 @@ const config_prod = {
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/i,
-                use: ['url-loader?limit=15000&name=images/[name].[ext]']
+                use: ['url-loader?limit=15000&name=/image/[name].[ext]']
             },
             {
                 test: /\.(woff|woff2|ttf|svg|eot)(\?v=\d+\.\d+\.\d+)?$/,

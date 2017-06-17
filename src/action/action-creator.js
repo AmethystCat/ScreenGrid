@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {video} from '../common/url-config';
+import {audio} from '../common/url-config';
 import {getNewConnections} from '../common/helper';
 
 const initMatrixShown = (matrixObj) => {
@@ -40,7 +40,7 @@ const showLoading = (show = true) => {
 
 const getSceneList = () => {
     return (dispatch) => {
-        return axios.get(video.sceneListUrl)
+        return axios.get(audio.sceneListUrl)
             .then(response => response.data)
             .then(res => {
                 if (!res.success) {
@@ -74,7 +74,7 @@ const setCurrentScene = (currentScene) => {
 
 const getMatrixByScene = (currSceneId) => {
     return (dispatch) => {
-        return axios.get(video.getListBySceneUrl, {
+        return axios.get(audio.getListBySceneUrl, {
             params: {
                 sceneId: currSceneId
             }
@@ -108,20 +108,20 @@ const setCurrentMatrix = (currMatrix) => {
 };
 
 const getMatrixInputData = (getState) => {
-    return axios.get(video.getListBySceneAndTypeUrl, {
+    return axios.get(audio.getListBySceneAndTypeUrl, {
         params: {
             portTypeCode: 'input',
-            videoMatrixId: getState().currentMatrixName.id,
+            audioMatrixId: getState().currentMatrixName.id,
             sceneId: getState().currentScene.id
         }
     });
 };
 
 const getMatrixOutputData = (getState) => {
-    return axios.get(video.getListBySceneAndTypeUrl, {
+    return axios.get(audio.getListBySceneAndTypeUrl, {
         params: {
             portTypeCode: 'output',
-            videoMatrixId: getState().currentMatrixName.id,
+            audioMatrixId: getState().currentMatrixName.id,
             sceneId: getState().currentScene.id
         }
     });
@@ -150,11 +150,11 @@ const setMatrixOriginData = (matrixOriginData) => {
 
 const getLogs = () => {
     return (dispatch, getState) => {
-        return axios.get(video.get15MatrixLogsUrl, {
+        return axios.get(audio.get15MatrixLogsUrl, {
             params: {
                 matrix: getState().currentMatrixName.id,
                 sceneId: getState().currentScene.id,
-                module: 'VIDEOMATRIXOPERATION'
+                module: 'AUDIOMATRIXOPERATION'
             }
         })
             .then(res => {
@@ -216,9 +216,9 @@ const changeMatrix = (currentMatrixId) => {
 
 const getConnections = () => {
     return (dispatch, getState) => {
-        return axios.get(video.connectionsUrl, {
+        return axios.get(audio.connectionsUrl, {
             params: {
-                videoMatrixId: getState().currentMatrixName.id
+                audioMatrixId: getState().currentMatrixName.id
             }
         })
             .then(res => {
@@ -236,11 +236,12 @@ const setConnections = (connections) => {
 
 const setInToOutConnect = (connectObj) => {
     return (dispatch, getState) => {
-        return axios.get(video.inToOutConnectUrl, {
+        return axios.get(audio.inToOutConnectUrl, {
         	params: {
-        		videoMatrixId: connectObj.videoMatrixId,
+        		audioMatrixId: connectObj.audioMatrixId,
         		inPortId: connectObj.inPortId,
-        		outPortId: connectObj.outPortId
+        		outPortId: connectObj.outPortId,
+                mode: 'POINT'
         	}
         })
         .then(res => {
@@ -253,11 +254,11 @@ const setInToOutConnect = (connectObj) => {
     };
 };
 
-const getConnectionByOut = (videoMatrixId, outPortId, connections) => {
+const getConnectionByOut = (audioMatrixId, outPortId, connections) => {
     return (dispatch) => {
-        return axios.get(video.connectionByOutUrl, {
+        return axios.get(audio.connectionByOutUrl, {
                 params: {
-                    videoMatrixId,
+                    audioMatrixId,
                     outPortId
                 }
             })

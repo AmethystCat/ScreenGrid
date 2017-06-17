@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import 'babel-polyfill';
 import {getVideoNewConnections} from '../src/common/helper';
 
 describe('helper: getVideoNewConnectoins test', function() {

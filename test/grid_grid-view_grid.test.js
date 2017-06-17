@@ -6,7 +6,7 @@ import {expect} from 'chai';
 // import Grid from '../src/pages/grid/grid_view/grid.jsx';
 // const store = createStore({});
 // 
-import {Grid} from '../src/pages/grid/grid_view/grid.jsx';
+// import {Grid} from '../src/pages/grid/grid_view/grid.jsx';
 
 describe('矩阵测试', function() {
     it('should_render_table', function(){

@@ -320,6 +320,8 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
                 });
                 matrixOriginDataCopy[portType] = newData;
                 dispatch(setMatrixOriginData(matrixOriginDataCopy));
+            } else {
+                alert(res.data.error);
             }
         })
         .then(() => {

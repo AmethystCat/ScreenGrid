@@ -36,7 +36,7 @@ export class Thead extends React.Component {
                                     setMute({
                                         audioMatrixId: isVirtual ? el.solidAudioMatrix.id : currentMatrix.id,
                                         portId: isVirtual ? el.solidPort.id : el.id,
-                                        mute: isVirtual ? el.solidPort.mute : el.mute,
+                                        mute: !(isVirtual ? el.solidPort.mute : el.mute),
                                         portType: 'matrixOutput',
                                         isVirtual
                                     });

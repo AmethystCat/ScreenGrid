@@ -29,7 +29,6 @@ export class Operation extends React.Component {
                     }
                     return connect;
                 });
-                console.log(newConnections);;
                 this.props.setConnections(newConnections);
             }
         });

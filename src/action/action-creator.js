@@ -197,7 +197,10 @@ const changeScene = (currentSceneId) => {
 
 const changeMatrix = (currentMatrixId) => {
     return (dispatch, getState) => {
-        dispatch(setCurrentMatrix({id: currentMatrixId}));
+        let newCurrentMatrix = getState().matrixName.filter((matrix) => {
+            return matrix.id === currentMatrixId;
+        });
+        dispatch(setCurrentMatrix(newCurrentMatrix[0]));
         return dispatch(getMatrixInputAndOutputData())
             .then(data => {
                 dispatch(setMatrixOriginData(data));

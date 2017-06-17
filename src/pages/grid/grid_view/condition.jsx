@@ -6,14 +6,10 @@ import Select from './condition-select';
 
 class Condition extends React.Component {
 	changeScene = (e, sceneId) => {
-		console.log(e.target.value);
-		console.log(sceneId);
 		sceneId === 'scene' && this.props.changeScene(e.target.value);
 	}
 	changeMatrix = (e, matrixId) => {
 		matrixId === 'matrix' && this.props.changeMatrix(e.target.value);
-		console.log(e.target.value);
-		console.log(matrixId);
 	}
     render() {
     	let {scene, currentScene, matrixName, currentMatrixName} = this.props;

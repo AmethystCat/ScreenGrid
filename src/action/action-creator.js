@@ -236,22 +236,20 @@ const setConnections = (connections) => {
 
 const setInToOutConnect = (connectObj) => {
     return (dispatch, getState) => {
-        // return axios.get(video.inToOutConnectUrl, {
-        // 	params: {
-        // 		videoMatrixId: connectObj.videoMatrixId,
-        // 		inPortId: connectObj.inPortId,
-        // 		outPortId: connectObj.outPortId
-        // 	}
-        // })
-        let data = {data: {success: true}};
-        return Promise.resolve(data)
-            .then(res => {
-                if (res.data.success) {
-                    let connections = getState().connections;
-                    let newConnections = getVideoNewConnections(connections, connectObj);
-                    dispatch(setConnections(newConnections));
-                }
-            });
+        return axios.get(video.inToOutConnectUrl, {
+        	params: {
+        		videoMatrixId: connectObj.videoMatrixId,
+        		inPortId: connectObj.inPortId,
+        		outPortId: connectObj.outPortId
+        	}
+        })
+        .then(res => {
+            if (res.data.success) {
+                let connections = getState().connections;
+                let newConnections = getVideoNewConnections(connections, connectObj);
+                dispatch(setConnections(newConnections));
+            }
+        });
     };
 };
 

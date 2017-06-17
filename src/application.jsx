@@ -13,8 +13,8 @@ const store = createStore({
         output: []
     },
     matrixSection: {
-        row: [0, 8],
-        col: [0, 8]
+        row: [0, 30],
+        col: [0, 30]
     },
     connections: [],
 

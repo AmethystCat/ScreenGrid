@@ -15,8 +15,8 @@ let audio = {
 		connectionsUrl: '/icmc/operation/audioMatrixOperation/connections',
 		inToOutConnectUrl: '/icmc/operation/audioMatrixOperation/inToOutConnect',
 		nToOutDisconnectUrl: '/icmc/operation/audioMatrixOperation/inToOutDisconnect',
-		changeMuteUrl: '/icmc/operation/videoMatrixOperation/changeMute',
-		changeVolumeUrl: '/icmc/operation/videoMatrixOperation/changeVolume',
+		changeMuteUrl: '/icmc/operation/audioMatrixOperation/changeMute',
+		changeVolumeUrl: '/icmc/operation/audioMatrixOperation/changeVolume',
 		connectionByOutUrl: '/icmc/operation/audioMatrixOperation/connectionByOut',
 		get15MatrixLogsUrl: '/icmc/internal/matrixLog/get15MatrixLogs'
 	};

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {video} from '../common/url-config';
-import {getVideoNewConnections} from '../common/helper';
+import {getNewConnections} from '../common/helper';
 
 const initMatrixShown = (matrixObj) => {
     return {
@@ -246,7 +246,7 @@ const setInToOutConnect = (connectObj) => {
         .then(res => {
             if (res.data.success) {
                 let connections = getState().connections;
-                let newConnections = getVideoNewConnections(connections, connectObj);
+                let newConnections = getNewConnections(connections, connectObj);
                 dispatch(setConnections(newConnections));
             }
         });

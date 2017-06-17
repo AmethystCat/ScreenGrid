@@ -1,4 +1,4 @@
-export const getVideoNewConnections = (originConnections = [], requestConnectionObj = {}) => {
+export const getNewConnections = (originConnections = [], requestConnectionObj = {}) => {
     let req_inId = requestConnectionObj.inPortId,
         req_outId = requestConnectionObj.outPortId;
     let newConnections = originConnections.slice(0);

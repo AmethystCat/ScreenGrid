@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actionCreators from '../../../action/action-creator';
 import audioBear from '../../../assets/image/audio-bear.png';
+import audioBearMute from '../../../assets/image/audio-bear-active.png';
 
 export class Tbody extends React.Component {
     clickHandler = (e) => {
@@ -14,7 +15,7 @@ export class Tbody extends React.Component {
         let clickedRow = rows[e.target.parentNode.rowIndex - 1],
             clickedCol = cols[e.target.cellIndex - 1];
         let connectObj = {
-            videoMatrixId: currentMatrix.id,
+            audioMatrixId: currentMatrix.id,
             inPortId: clickedRow.id,
             outPortId: clickedCol.id
         };
@@ -66,7 +67,11 @@ export class Tbody extends React.Component {
             		return <tr key={`r${index}`} onClick={this.clickHandler}>
 	            			{cols.map((col, i) => {
                                 if (i === 0) {
-                                    return <td key={0}>{row.name}<img src={audioBear}/><span>1</span></td>;
+                                    return <td key={0}>
+                                            {row.name}
+                                            <img src={row.mute ? audioBearMute : audioBear}/>
+                                            <span>{row.volume || 0}</span>
+                                        </td>;
                                 } else {
                                     let classes = this.getIsConnectClasses(row, cols[i - 1], connections);
                                     return <td 

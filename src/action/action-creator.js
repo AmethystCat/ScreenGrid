@@ -319,10 +319,16 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
                     return el;
                 });
                 matrixOriginDataCopy[portType] = newData;
-                dispatch(setMatrixOriginData(matrixOriginDataCopy));
+                return dispatch(setMatrixOriginData(matrixOriginDataCopy));
             } else {
                 alert(res.data.error);
             }
+        })
+        .then(() => {
+            dispatch(initMatrixShown({
+                originData: getState().matrixOriginData,
+                section: getState().matrixSection
+            }));
         })
         .then(() => {
             dispatch(showLoading(false));

@@ -102,7 +102,7 @@ export class Tbody extends React.Component {
                                                     portName = row.name,
                                                     mute = isVirtual ? row.solidPort.mute : row.mute,
                                                     target = e.target;
-                                                this.openVolumeLayer({currentMatrixId, portId, portName, mute, target, isVirtual});
+                                                this.openVolumePanel({currentMatrixId, portId, portName, mute, target, isVirtual});
                                             }}>{(isVirtual ? row.solidPort.volume : row.volume) || 0}</span>
                                         </td>;
                                 } else {

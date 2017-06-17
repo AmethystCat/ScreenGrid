@@ -59,8 +59,24 @@ export class Tbody extends React.Component {
         return isConnect ? 'isConnect' : '';
     }
 
+    openVolumeLayer = (portId, mute, portName, portTypeId, target) => {
+        
+        let {currentMatrix} = this.props;
+        let _this = this;
+        openVolumeLayer(currentMatrix.id, portId, mute, '', '', '', target, portName, function(currentVolume) {
+            // params: audioMatrixId, portId, volmue, portType, inOrOutPortId
+            _this.props.setVolume({
+                audioMatrixId: currentMatrix.id, 
+                portId: portTypeId,
+                volume: currentVolume,
+                portType: 'matrixOutput',
+                inOrOutPortId: portId
+            });
+        });
+    }
+
     render() {
-    	let {rows, cols, connections = []} = this.props;
+    	let {rows, cols, connections = [], currentMatrix, setMute} = this.props;
         return (
             <tbody onMouseEnter={this.mouseEnterHandler} onMouseLeave={this.mouseLeaveHandler}>
             	{rows.map((row, index) => {
@@ -69,8 +85,22 @@ export class Tbody extends React.Component {
                                 if (i === 0) {
                                     return <td key={0}>
                                             {row.name}
-                                            <img src={row.mute ? audioBearMute : audioBear}/>
-                                            <span>{row.volume || 0}</span>
+                                            <img
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setMute({
+                                                        audioMatrixId: currentMatrix.id, 
+                                                        portId: row.portType.id,
+                                                        mute: !row.mute,
+                                                        portType: 'matrixOutput',
+                                                        inOrOutPortId: row.id
+                                                    });
+                                                }}
+                                                src={row.mute ? audioBearMute : audioBear}/>
+                                            <span onClick={(e) => {
+                                                e.stopPropagation();
+                                                this.openVolumeLayer(row.id, row.mute, row.name, row.portType.id, e.target);
+                                            }}>{row.volume || 0}</span>
                                         </td>;
                                 } else {
                                     let classes = this.getIsConnectClasses(row, cols[i - 1], connections);

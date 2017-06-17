@@ -305,30 +305,26 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
         })
         .then(res => {
             if (res.data.success) {
+                let currentMatrixId = getState().currentMatrixName.id;
+                return dispatch(changeMatrix(currentMatrixId));
                 // 更改静音状态成功后更新矩阵数据的状态，要分虚拟矩阵和实体矩阵两种状态
                 // portType: matrixInput / matrixOutput
-                let matrixOriginDataCopy = getState().matrixOriginData;
-                let newData = matrixOriginDataCopy[portType].map((el) => {
-                    if (isVirtual) {
-                        if (el.solidPort.id === portId) {
-                            el.solidPort.mute = mute;
-                        }
-                    } else if (el.id === portId) {
-                        el.mute = mute;
-                    }
-                    return el;
-                });
-                matrixOriginDataCopy[portType] = newData;
-                return dispatch(setMatrixOriginData(matrixOriginDataCopy));
+                // let matrixOriginDataCopy = getState().matrixOriginData;
+                // let newData = matrixOriginDataCopy[portType].map((el) => {
+                //     if (isVirtual) {
+                //         if (el.solidPort.id === portId) {
+                //             el.solidPort.mute = mute;
+                //         }
+                //     } else if (el.id === portId) {
+                //         el.mute = mute;
+                //     }
+                //     return el;
+                // });
+                // matrixOriginDataCopy[portType] = newData;
+                // return dispatch(setMatrixOriginData(matrixOriginDataCopy));
             } else {
                 alert(res.data.error);
             }
-        })
-        .then(() => {
-            dispatch(initMatrixShown({
-                originData: getState().matrixOriginData,
-                section: getState().matrixSection
-            }));
         })
         .then(() => {
             dispatch(showLoading(false));

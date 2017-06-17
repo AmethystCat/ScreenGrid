@@ -27,8 +27,8 @@ const getHost = ((url) => {
     return url.split(':')[1].split('//')[1];
 })(getUrl);
 
-let proxyServer = 'http://192.168.31.141:8080';
-// let proxyServer = 'http://localhost:3000';
+// let proxyServer = 'http://192.168.31.141:8080';
+let proxyServer = 'http://localhost:3000';
 
 // 生成注释图案 哈哈
 figlet('Big Screen', {
@@ -146,13 +146,13 @@ const config_prod = {
         publicPath: '/'
     },
     // 设置了resolve就不行，why
-    // resolve: {
-    //     modules: [
-    //         'node_modules',
-    //         path.resolve(__dirname, 'src')
-    //     ],
-    //     extensions: ['js', '.jsx', '.json', '.less']
-    // },
+    resolve: {
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, 'src')
+        ],
+        extensions: ['.js', '.jsx', '.json', '.less']
+    },
     module: {
         rules: [
             {

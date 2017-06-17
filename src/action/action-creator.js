@@ -293,6 +293,66 @@ const initRequest = () => {
     };
 };
 
+const setMute = ({audioMatrixId, portId, mute, portType, inOrOutPortId}) => {
+    return (dispatch, getState) => {
+        dispatch(showLoading(true));
+        return axios.get(audio.changeMuteUrl, {
+            params: {
+                audioMatrixId,
+                portId,
+                mute
+            }
+        })
+        .then(res => {
+            if (res.data.success) {
+                // 更改静音状态成功后更新矩阵数据的状态
+                // portType: matrixInput / matrixOutput
+                let matrixOriginDataCopy = getState().matrixOriginData;
+                let newData = matrixOriginDataCopy[portType].map((el) => {
+                    if (el.id === inOrOutPortId) {
+                        el.mute = mute;
+                    }
+                    return el;
+                });
+                matrixOriginDataCopy[portType] = newData;
+                dispatch(setMatrixOriginData(matrixOriginDataCopy));
+            }
+        })
+        .then(() => {
+            dispatch(showLoading(false));
+        });
+    };
+};
+
+const setVolume = ({audioMatrixId, portId, volmue, portType, inOrOutPortId}) => {
+    return (dispatch, getState) => {
+        dispatch(showLoading(true));
+        return axios.get(audio.changeVolumeUrl, {
+            params: {
+                audioMatrixId,
+                portId,
+                volmue
+            }
+        })
+        .then(res => {
+            if (res.data.success) {
+                let matrixOriginDataCopy = getState().matrixOriginData;
+                let newData = matrixOriginDataCopy[portType].map((el) => {
+                    if (el.id === inOrOutPortId) {
+                        el.volmue = volmue;
+                    }
+                    return el;
+                });
+                matrixOriginDataCopy[portType] = newData;
+                dispatch(setMatrixOriginData(matrixOriginDataCopy));
+            }
+        })
+        .then(() => {
+            dispatch(showLoading(false));
+        });
+    };
+};
+
 export default {
     initRequest,
     initMatrixShown,
@@ -309,5 +369,7 @@ export default {
     getConnections,
     setConnections,
     setInToOutConnect,
-    getConnectionByOut
+    getConnectionByOut,
+    setMute,
+    setVolume
 };

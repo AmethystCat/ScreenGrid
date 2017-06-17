@@ -16,10 +16,11 @@ function openVolumeLayer(audioMatrixId,portId,mute,maxChangeV,maxV,minV,currentD
     audioMatrix = audioMatrixId;
     port = portId;
     mut = mute;
-    maxChange = maxChangeV;
-    max = maxV;
-    min = minV;
-    currentDo = currentDom;
+    maxChange = maxChangeV || 5;
+    max = maxV || 100;
+    min = minV || 0;
+    currentDom = $(currentDom);
+    currentDo = $(currentDom) ;
     var micClass = '';
     if(mut){
         micClass = 'micX'
@@ -71,7 +72,8 @@ var body = $('body'),
 //关闭声音弹窗
 body.on('click','.close-volume',function(){
     $('.volume-control').remove();
-    fun();
+    var currentVolume = $('.range').val() || 100;
+    fun(currentVolume);
 });
 //,请求改变当前音量大小
 function changeVL(finalV){

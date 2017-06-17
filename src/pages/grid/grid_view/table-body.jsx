@@ -7,7 +7,7 @@ import audioBear from '../../../assets/image/audio-bear.png';
 export class Tbody extends React.Component {
     clickHandler = (e) => {
         if (e.target.cellIndex === 0) return;
-        let {rows, cols, currentMatrix, setInToOutConnect} = this.props;
+        let {rows, cols, currentMatrix, setInToOutConnect, getLogs} = this.props;
         // console.log(e.nativeEvent);
         console.log('col: ', cols[e.target.cellIndex - 1]);
         console.log('row: ', rows[e.target.parentNode.rowIndex - 1]);
@@ -18,7 +18,9 @@ export class Tbody extends React.Component {
             inPortId: clickedRow.id,
             outPortId: clickedCol.id
         };
-        setInToOutConnect(connectObj);
+        Promise.resolve(setInToOutConnect(connectObj))
+            .then(getLogs());
+        ;
     }
 
     mouseOverHandler = (e) => {
@@ -42,7 +44,7 @@ export class Tbody extends React.Component {
         this.props.showLayer(false);
     }
 
-    getIsConnectClasses = (row, col, connections) => {
+    getIsConnectClasses = (row, col, connections = []) => {
         let isConnect = false;
         let ouputId = col.id,
             inputId = row.id;
@@ -53,7 +55,7 @@ export class Tbody extends React.Component {
     }
 
     render() {
-    	let {rows, cols, connections} = this.props;
+    	let {rows, cols, connections = []} = this.props;
         return (
             <tbody onMouseEnter={this.mouseEnterHandler} onMouseLeave={this.mouseLeaveHandler}>
             	{rows.map((row, index) => {
@@ -73,7 +75,9 @@ export class Tbody extends React.Component {
                             {(() => {
                                 return <td 
                                         key={'lastTd'}
-                                        className={this.getIsConnectClasses(row, cols[cols.length - 1], connections)}
+                                        className={
+                                            cols.length
+                                            && this.getIsConnectClasses(row, cols[cols.length - 1], connections)}
                                         onMouseOver={this.mouseOverHandler}
                                     />;
                             })(rows, cols, connections)} 

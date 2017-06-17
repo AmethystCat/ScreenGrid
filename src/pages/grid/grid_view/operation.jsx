@@ -21,14 +21,21 @@ export class Operation extends React.Component {
                     inMatrixPort: res.data.data,
                     outMatrixPort: outPortId
                 };
-                let newConnections = connections.push(currentPort);
+                // 连接记录中对当前请求的输出源对应的输入源进行更新操作
+                // connections.push(currentPort);
+                let newConnections = connections.map((connect) => {
+                    if (connect.outMatrixPort === currentPort.outMatrixPort) {
+                        connect.inMatrixPort = currentPort.inMatrixPort;
+                    }
+                    return connect;
+                });
+                console.log(newConnections);;
                 this.props.setConnections(newConnections);
             }
         });
     }
 
     refresh = () => {
-        this.props.setConnections([]);
         let {outPorts = [], currentMatrixId, connections} = this.props;
         let promises = outPorts.map((outPort) => {
             return this.getConnectionByOut(currentMatrixId, outPort.id, connections);

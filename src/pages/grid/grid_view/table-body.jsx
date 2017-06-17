@@ -24,7 +24,9 @@ export class Tbody extends React.Component {
     }
 
     mouseOverHandler = (e) => {
-        if (e.target.cellIndex === 0 || !this.props.isShowLayer) return;
+        let isFirstCol = e.target.cellIndex === 0;
+        if (isFirstCol) return;
+        this.props.showLayer(true);
         let table = document.getElementById('table');
         let fx = document.getElementById('fx'),
             fy = document.getElementById('fy');
@@ -36,7 +38,9 @@ export class Tbody extends React.Component {
         fy.style.left = e.target.offsetLeft + table.offsetLeft + tdBorder/2 + 'px';
     }
 
-    mouseEnterHandler = () => {
+    mouseEnterHandler = (e) => {
+        let isFirstCol = e.target.cellIndex === 0;
+        if (isFirstCol) return;
         this.props.showLayer(true);
     }
 

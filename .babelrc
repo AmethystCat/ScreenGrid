@@ -5,7 +5,7 @@
     		"plugins": ["transform-runtime", "react-hot-loader/babel"]
     	},
     	"production": {
-    		"plugins": ["transform-react-constant-elements"]
+    		"plugins": ["transform-react-constant-elements", "transform-runtime"]
     	},
     	"test": {
     		"presets": ["env", "stage-2", "react"]

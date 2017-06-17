@@ -59,24 +59,22 @@ export class Tbody extends React.Component {
         return isConnect ? 'isConnect' : '';
     }
 
-    openVolumeLayer = (portId, mute, portName, portTypeId, target) => {
-        
-        let {currentMatrix} = this.props;
+    openVolumePanel = (params) => {
+        let {currentMatrixId, portId, portName, mute, target} = params;
         let _this = this;
-        openVolumeLayer(currentMatrix.id, portId, mute, '', '', '', target, portName, function(currentVolume) {
-            // params: audioMatrixId, portId, volmue, portType, inOrOutPortId
+        openVolumeLayer(currentMatrixId, portId, mute, '', '', '', target, portName, function(currentVolume) {
             _this.props.setVolume({
-                audioMatrixId: currentMatrix.id, 
-                portId: portTypeId,
+                audioMatrixId: currentMatrixId, 
+                portId: portId,
                 volume: currentVolume,
-                portType: 'matrixOutput',
-                inOrOutPortId: portId
+                portType: 'matrixOutput'
             });
         });
     }
 
     render() {
     	let {rows, cols, connections = [], currentMatrix, setMute} = this.props;
+        let isVirtual = currentMatrix.virtual;
         return (
             <tbody onMouseEnter={this.mouseEnterHandler} onMouseLeave={this.mouseLeaveHandler}>
             	{rows.map((row, index) => {
@@ -89,18 +87,23 @@ export class Tbody extends React.Component {
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     setMute({
-                                                        audioMatrixId: currentMatrix.id, 
-                                                        portId: row.portType.id,
-                                                        mute: !row.mute,
-                                                        portType: 'matrixOutput',
-                                                        inOrOutPortId: row.id
+                                                        audioMatrixId: isVirtual ? row.solidAudioMatrix.id : currentMatrix.id, 
+                                                        portId: isVirtual ? row.solidPort.id : row.id,
+                                                        mute: !(isVirtual ? row.solidPort.mute : row.mute),
+                                                        portType: 'matrixInput',
+                                                        isVirtual
                                                     });
                                                 }}
-                                                src={row.mute ? audioBearMute : audioBear}/>
+                                                src={(isVirtual ? row.solidPort.mute : row.mute) ? audioBearMute : audioBear}/>
                                             <span onClick={(e) => {
                                                 e.stopPropagation();
-                                                this.openVolumeLayer(row.id, row.mute, row.name, row.portType.id, e.target);
-                                            }}>{row.volume || 0}</span>
+                                                let currentMatrixId = isVirtual ? row.solidAudioMatrix.id : currentMatrix.id,
+                                                    portId = isVirtual ? row.solidPort.id : row.id,
+                                                    portName = row.name,
+                                                    mute = isVirtual ? row.solidPort.mute : row.mute,
+                                                    target = e.target;
+                                                this.openVolumeLayer({currentMatrixId, portId, portName, mute, target, isVirtual});
+                                            }}>{(isVirtual ? row.solidPort.volume : row.volume) || 0}</span>
                                         </td>;
                                 } else {
                                     let classes = this.getIsConnectClasses(row, cols[i - 1], connections);

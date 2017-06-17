@@ -8,7 +8,7 @@ function Ul(props) {
         	if (operation === 'CONNECT' || operation === 'DISCONNECT') {
         		logContent = `${log.matrixPort}${log.description}${log.toMatrixPort}`;
         	} else {
-        		logContent = `${log.matrixPort}${log.description}`
+        		logContent = `${log.matrixPort}${log.description}`;
         	}
             return <li title={log.description} key={index}>
             		{logContent}

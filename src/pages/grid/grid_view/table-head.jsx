@@ -7,24 +7,23 @@ import audioBearMute from '../../../assets/image/audio-mute-active.png';
 
 export class Thead extends React.Component {
 
-    openVolumeLayer = (portId, mute, portName, portTypeId, target) => {
-        
-        let {currentMatrix} = this.props;
+    openVolumePanel = (params) => {
+        let {currentMatrixId, portId, portName, mute, target, isVirtual} = params;
         let _this = this;
-        openVolumeLayer(currentMatrix.id, portId, mute, '', '', '', target, portName, function(currentVolume) {
-            // params: audioMatrixId, portId, volmue, portType, inOrOutPortId
+        openVolumeLayer(currentMatrixId, portId, mute, '', '', '', target, portName, function(currentVolume) {
             _this.props.setVolume({
-                audioMatrixId: currentMatrix.id, 
-                portId: portTypeId,
+                audioMatrixId: currentMatrixId, 
+                portId: portId,
                 volume: currentVolume,
                 portType: 'matrixOutput',
-                inOrOutPortId: portId
+                isVirtual
             });
         });
     }
 
     render() {
         let {setMute, currentMatrix} = this.props;
+        let isVirtual = currentMatrix.virtual;
         return (
             <thead>
             	<tr>
@@ -35,17 +34,22 @@ export class Thead extends React.Component {
                             <img 
                                 onClick={() => {
                                     setMute({
-                                        audioMatrixId: currentMatrix.id, 
-                                        portId: el.portType.id,
-                                        mute: !el.mute,
+                                        audioMatrixId: isVirtual ? el.solidAudioMatrix.id : currentMatrix.id,
+                                        portId: isVirtual ? el.solidPort.id : el.id,
+                                        mute: isVirtual ? el.solidPort.mute : el.mute,
                                         portType: 'matrixOutput',
-                                        inOrOutPortId: el.id
+                                        isVirtual
                                     });
                                 }} 
-                                src={el.mute ? audioBearMute : audioMute}/>
+                                src={(isVirtual ? el.solidPort.mute : el.mute) ? audioBearMute : audioMute}/>
                             <span onClick={(e) => {
-                                this.openVolumeLayer(el.id, el.mute, el.name, el.portType.id, e.target);
-                            }} >{el.volume || 0}</span>
+                                let currentMatrixId = isVirtual ? el.solidAudioMatrix.id : currentMatrix.id,
+                                    portId = isVirtual ? el.solidPort.id : el.id,
+                                    portName = el.name,
+                                    mute = isVirtual ? el.solidPort.mute : el.mute,
+                                    target = e.target;
+                                this.openVolumePanel({currentMatrixId, portId, portName, mute, target, isVirtual});
+                            }} >{(isVirtual ? el.solidPort.volume : el.volume) || 0}</span>
                         </th>;
 	            	})}
 	            </tr>

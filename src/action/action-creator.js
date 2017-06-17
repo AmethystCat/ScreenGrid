@@ -293,7 +293,7 @@ const initRequest = () => {
     };
 };
 
-const setMute = ({audioMatrixId, portId, mute, portType, inOrOutPortId}) => {
+const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
     return (dispatch, getState) => {
         dispatch(showLoading(true));
         return axios.get(audio.changeMuteUrl, {
@@ -305,11 +305,15 @@ const setMute = ({audioMatrixId, portId, mute, portType, inOrOutPortId}) => {
         })
         .then(res => {
             if (res.data.success) {
-                // 更改静音状态成功后更新矩阵数据的状态
+                // 更改静音状态成功后更新矩阵数据的状态，要分虚拟矩阵和实体矩阵两种状态
                 // portType: matrixInput / matrixOutput
                 let matrixOriginDataCopy = getState().matrixOriginData;
                 let newData = matrixOriginDataCopy[portType].map((el) => {
-                    if (el.id === inOrOutPortId) {
+                    if (isVirtual) {
+                        if (el.solidPort.id === portId) {
+                            el.solidPort.mute = mute;
+                        }
+                    } else if (el.id === portId) {
                         el.mute = mute;
                     }
                     return el;
@@ -324,32 +328,21 @@ const setMute = ({audioMatrixId, portId, mute, portType, inOrOutPortId}) => {
     };
 };
 
-const setVolume = ({audioMatrixId, portId, volmue, portType, inOrOutPortId}) => {
+const setVolume = ({portId, volume, portType, isVirtual}) => {
     return (dispatch, getState) => {
-        dispatch(showLoading(true));
-        return axios.get(audio.changeVolumeUrl, {
-            params: {
-                audioMatrixId,
-                portId,
-                volmue
+        let matrixOriginDataCopy = getState().matrixOriginData;
+        let newData = matrixOriginDataCopy[portType].map((el) => {
+            if (isVirtual) {
+                if (el.solidPort.id === portId) {
+                    el.solidPort.volume = volume;
+                }
+            } else if (el.id === portId) {
+                el.volume = volume;
             }
-        })
-        .then(res => {
-            if (res.data.success) {
-                let matrixOriginDataCopy = getState().matrixOriginData;
-                let newData = matrixOriginDataCopy[portType].map((el) => {
-                    if (el.id === inOrOutPortId) {
-                        el.volmue = volmue;
-                    }
-                    return el;
-                });
-                matrixOriginDataCopy[portType] = newData;
-                dispatch(setMatrixOriginData(matrixOriginDataCopy));
-            }
-        })
-        .then(() => {
-            dispatch(showLoading(false));
+            return el;
         });
+        matrixOriginDataCopy[portType] = newData;
+        dispatch(setMatrixOriginData(matrixOriginDataCopy));
     };
 };
 

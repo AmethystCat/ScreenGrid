@@ -17,8 +17,8 @@ function openVolumeLayer(audioMatrixId,portId,mute,maxChangeV,maxV,minV,currentD
     port = portId;
     mut = mute;
     maxChange = maxChangeV || 5;
-    max = maxV || 100;
-    min = minV || 0;
+    max = maxV = maxV || 100;
+    min = minV = minV || 0;
     currentDom = $(currentDom);
     currentDo = $(currentDom) ;
     var micClass = '';
@@ -93,7 +93,7 @@ function changeVL(finalV){
         async:false,
         success:function(data){
             if(data.success){
-                currentDo.html(volume);
+                currentDo.html(finalV);
                 $('.now-v').html(finalV);//顶部显示此时的音量值
                 $('.range').val(finalV);//input显示音量值
             }else{

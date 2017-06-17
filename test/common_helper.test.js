@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'babel-polyfill';
-import {getVideoNewConnections} from '../src/common/helper';
+import {getNewConnections} from '../src/common/helper';
 
 describe('helper: getVideoNewConnectoins test', function() {
     it('should_origin_connections_add_given_element_when_given_is_not_in_it_and_that_col_have_not_element', function() {
@@ -14,7 +14,7 @@ describe('helper: getVideoNewConnectoins test', function() {
                 inPortId: '40289f0d5c865cb7015c865fb8fa0004'
             };
         // when
-        let newConnections = getVideoNewConnections(originConnections, requestConnectionObj);
+        let newConnections = getNewConnections(originConnections, requestConnectionObj);
         let expectConnections = [
             {outMatrixPort: '40289f0d5c865cb7015c865fb8fc000e', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0004'},
             {outMatrixPort: '40289f0d5c865cb7015c865fb8fc000d', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0005'},
@@ -36,7 +36,7 @@ describe('helper: getVideoNewConnectoins test', function() {
                 inPortId: '40289f0d5c865cb7015c865fb8fa0002'
             };
         // when
-        let newConnections = getVideoNewConnections(originConnections, requestConnectionObj);
+        let newConnections = getNewConnections(originConnections, requestConnectionObj);
         let expectConnections = [
             {outMatrixPort: '40289f0d5c865cb7015c865fb8fc000e', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0004'},
             {outMatrixPort: '40289f0d5c865cb7015c865fb8fc000d', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0002'},
@@ -58,7 +58,7 @@ describe('helper: getVideoNewConnectoins test', function() {
 				outPortId: '40289f0d5c865cb7015c865fb8fe0014'
 			};
 		// when
-		let newConnections = getVideoNewConnections(originConnections, requestConnectionObj);
+		let newConnections = getNewConnections(originConnections, requestConnectionObj);
 		let expectConnections = [
             	{outMatrixPort: '40289f0d5c865cb7015c865fb8fe0014', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0002'},
             	{outMatrixPort: '40289f0d5c865cb7015c865fb8fc000e', inMatrixPort: '40289f0d5c865cb7015c865fb8fa0004'},

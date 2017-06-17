@@ -86,25 +86,24 @@ export class Tbody extends React.Component {
                                             <img
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    console.log(isVirtual ? ('solidAudioMatrix '+row.solidAudioMatrix.id) : currentMatrix.id);
                                                     setMute({
-                                                        audioMatrixId: isVirtual ? row.solidAudioMatrix.id : currentMatrix.id, 
-                                                        portId: isVirtual ? row.solidPort.id : row.id,
-                                                        mute: !(isVirtual ? row.solidPort.mute : row.mute),
+                                                        audioMatrixId: isVirtual ? (row.solidAudioMatrix ? row.solidAudioMatrix.id : '') : currentMatrix.id, 
+                                                        portId: isVirtual ? (row.solidPort ? row.solidPort.id : '') : row.id,
+                                                        mute: !(isVirtual ? (row.solidPort ? row.solidPort.mute : false) : row.mute),
                                                         portType: 'matrixInput',
                                                         isVirtual
                                                     });
                                                 }}
-                                                src={(isVirtual ? row.solidPort.mute : row.mute) ? audioBearMute : audioBear}/>
+                                                src={(isVirtual ? (row.solidPort ? row.solidPort.mute : false) : row.mute) ? audioBearMute : audioBear}/>
                                             <span onClick={(e) => {
                                                 e.stopPropagation();
-                                                let currentMatrixId = isVirtual ? row.solidAudioMatrix.id : currentMatrix.id,
-                                                    portId = isVirtual ? row.solidPort.id : row.id,
+                                                let currentMatrixId = isVirtual ? (row.solidAudioMatrix ? row.solidAudioMatrix.id : '') : currentMatrix.id,
+                                                    portId = isVirtual ? (row.solidPort ? row.solidPort.id : '') : row.id,
                                                     portName = row.name,
-                                                    mute = isVirtual ? row.solidPort.mute : row.mute,
+                                                    mute = isVirtual ? (row.solidPort ? row.solidPort.mute : false) : row.mute,
                                                     target = e.target;
                                                 this.openVolumePanel({currentMatrixId, portId, portName, mute, target, isVirtual});
-                                            }}>{(isVirtual ? row.solidPort.volume : row.volume) || 0}</span>
+                                            }}>{(isVirtual ? (row.solidPort ? row.solidPort.volume : '') : row.volume) || 0}</span>
                                         </td>;
                                 } else {
                                     let classes = this.getIsConnectClasses(row, cols[i - 1], connections);

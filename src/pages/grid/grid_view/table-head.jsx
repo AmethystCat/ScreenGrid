@@ -34,22 +34,22 @@ export class Thead extends React.Component {
                             <img 
                                 onClick={() => {
                                     setMute({
-                                        audioMatrixId: isVirtual ? el.solidAudioMatrix.id : currentMatrix.id,
-                                        portId: isVirtual ? el.solidPort.id : el.id,
-                                        mute: !(isVirtual ? el.solidPort.mute : el.mute),
+                                        audioMatrixId: isVirtual ? (el.solidAudioMatrix ? el.solidAudioMatrix.id : '') : currentMatrix.id,
+                                        portId: isVirtual ? (el.solidPort ? el.solidPort.id : '') : el.id,
+                                        mute: !(isVirtual ? (el.solidPort ? el.solidPort.mute : false) : el.mute),
                                         portType: 'matrixOutput',
                                         isVirtual
                                     });
                                 }} 
-                                src={(isVirtual ? el.solidPort.mute : el.mute) ? audioBearMute : audioMute}/>
+                                src={(isVirtual ? (el.solidPort ? el.solidPort.mute : false) : el.mute) ? audioBearMute : audioMute}/>
                             <span onClick={(e) => {
-                                let currentMatrixId = isVirtual ? el.solidAudioMatrix.id : currentMatrix.id,
-                                    portId = isVirtual ? el.solidPort.id : el.id,
+                                let currentMatrixId = isVirtual ? (el.solidAudioMatrix ? el.solidAudioMatrix.id : '') : currentMatrix.id,
+                                    portId = isVirtual ? (el.solidPort ? el.solidPort.id : '') : el.id,
                                     portName = el.name,
-                                    mute = isVirtual ? el.solidPort.mute : el.mute,
+                                    mute = isVirtual ? (el.solidPort ? el.solidPort.mute : false) : el.mute,
                                     target = e.target;
                                 this.openVolumePanel({currentMatrixId, portId, portName, mute, target, isVirtual});
-                            }} >{(isVirtual ? el.solidPort.volume : el.volume) || 0}</span>
+                            }} >{(isVirtual ? (el.solidPort ? el.solidPort.volume : 0) : el.volume) || 0}</span>
                         </th>;
 	            	})}
 	            </tr>

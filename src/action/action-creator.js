@@ -51,7 +51,8 @@ const getSceneList = () => {
             })
             .then(sceneList => {
                 if (sceneList.length) {
-                    let cacheSceneIds = JSON.parse(window.localStorage.getItem('loginInfo')).sceneIdSet || [];
+                    let cachedLoginInfo = window.localStorage.getItem('loginInfo');
+                    let cacheSceneIds = JSON.parse(cachedLoginInfo ? cachedLoginInfo.sceneIdSet : '[]');
                     let newSceneList = sceneFilter(sceneList, cacheSceneIds);
                     dispatch(setSceneList(newSceneList));
                     return newSceneList;

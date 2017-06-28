@@ -40,3 +40,13 @@ export const refreshMatrix = async (promises) => {
         await promise;
     }
 };
+
+export const sceneFilter = (sceneList = [], cacheSceneIds = []) => {
+    if (!sceneList.length || !cacheSceneIds.length) return sceneList;
+    let newSceneList = cacheSceneIds.map((id) => {
+        return sceneList.filter((scene) => {
+            return id === scene.id;
+        })[0];
+    });
+    return newSceneList;
+};

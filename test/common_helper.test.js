@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'babel-polyfill';
-import {getNewConnections} from '../src/common/helper';
+import {getNewConnections, sceneFilter} from '../src/common/helper';
 
 describe('helper: getVideoNewConnectoins test', function() {
     it('should_origin_connections_add_given_element_when_given_is_not_in_it_and_that_col_have_not_element', function() {
@@ -68,4 +68,52 @@ describe('helper: getVideoNewConnectoins test', function() {
 		expect(newConnections).to.eql(expectConnections);
 	});
 
+});
+
+describe('helper: sceneFilter test:', function() {
+    it('should_return_new_scene_list_from_local_cached_sceneIds', function() {
+        // given
+        let sceneList = [
+            {id: 111, name: 's1'},
+            {id: 222, name: 's2'},
+            {id: 333, name: 's3'}
+        ];
+        let cacheSceneIds = [111, 333];
+        let expectSceneList = [
+            {id: 111, name: 's1'},
+            {id: 333, name: 's3'}
+        ];
+        // when
+        let newSceneList = sceneFilter(sceneList, cacheSceneIds);
+        // then
+        expect(newSceneList).to.eql(expectSceneList);
+    });
+    it('should_return_an_empty_array_when_sceneList_and_is_none', function() {
+        // given
+        let sceneList = [];
+        let cacheSceneIds = [111, 333];
+        let expectSceneList = [];
+        // when
+        let newSceneList = sceneFilter(sceneList, cacheSceneIds);
+        // then
+        expect(newSceneList).to.eql(expectSceneList);
+    });
+    it('should_return_sceneList_when_cacheSceneIds_is_none', function() {
+        // given
+        let sceneList = [
+            {id: 111, name: 's1'},
+            {id: 222, name: 's2'},
+            {id: 333, name: 's3'}
+        ];
+        let cacheSceneIds = [];
+        let expectSceneList = [
+            {id: 111, name: 's1'},
+            {id: 222, name: 's2'},
+            {id: 333, name: 's3'}
+        ];
+        // when
+        let newSceneList = sceneFilter(sceneList, cacheSceneIds);
+        // then
+        expect(newSceneList).to.eql(expectSceneList);
+    });
 });

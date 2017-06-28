@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {audio} from '../common/url-config';
-import {getNewConnections} from '../common/helper';
+import {getNewConnections, sceneFilter} from '../common/helper';
 
 const initMatrixShown = (matrixObj) => {
     return {
@@ -49,10 +49,12 @@ const getSceneList = () => {
                 }
                 return res.data;
             })
-            .then(data => {
-                if (data.length) {
-                    dispatch(setSceneList(data));
-                    return data;
+            .then(sceneList => {
+                if (sceneList.length) {
+                    let cacheSceneIds = JSON.parse(window.localStorage.getItem('loginInfo')).sceneIdSet || [];
+                    let newSceneList = sceneFilter(sceneList, cacheSceneIds);
+                    dispatch(setSceneList(newSceneList));
+                    return newSceneList;
                 }
             });
     };

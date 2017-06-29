@@ -53,7 +53,7 @@ const getSceneList = () => {
             .then(sceneList => {
                 if (sceneList.length) {
                     let cachedLoginInfo = window.localStorage.getItem('loginInfo');
-                    let cacheSceneIds = JSON.parse(cachedLoginInfo ? cachedLoginInfo : '{}').sceneIdSet || [];
+                    let cacheSceneIds = JSON.parse(cachedLoginInfo ? cachedLoginInfo : '{}')['sceneIdSet'] || [];
                     let newSceneList = sceneFilter(sceneList, cacheSceneIds);
                     dispatch(setSceneList(newSceneList));
                     return newSceneList;
@@ -137,11 +137,10 @@ const getMatrixInputAndOutputData = () => {
         return axios.all([getMatrixInputData(getState), getMatrixOutputData(getState)])
             .then(data => {
                 console.log(data);
-                let matrixOriginData = {
-                    matrixInput: data[0].data.data,
-                    matrixOutput: data[1].data.data
+                return  {
+                    matrixInput: responseExceptionFilter(data[0].data).data,
+                    matrixOutput: responseExceptionFilter(data[1].data).data
                 };
-                return matrixOriginData;
             });
     };
 };
@@ -233,15 +232,9 @@ const getConnections = () => {
                 videoMatrixId: getState().currentMatrixName.id
             }
         })
-        .then(response => {
-            if(!response.data.success) {
-                layerAlert(response.data.error, 2);
-                throw response.data.error;
-            }
-            return response;
-        })
+        .then(response => responseExceptionFilter(response).data)
         .then(res => {
-            dispatch(setConnections(res.data.data));
+            dispatch(setConnections(res.data));
         });
     };
 };
@@ -267,6 +260,8 @@ const setInToOutConnect = (connectObj) => {
                 let connections = getState().connections;
                 let newConnections = getNewConnections(connections, connectObj);
                 dispatch(setConnections(newConnections));
+            } else {
+                layerAlert(res.data.error);
             }
         });
     };
@@ -288,6 +283,8 @@ const getConnectionByOut = (videoMatrixId, outPortId, connections) => {
                         };
                     let newConnections = connections.push(currentPort);
                     dispatch(setConnections(newConnections));
+                } else {
+                    layerAlert(res.data.error);
                 }
             });
     };

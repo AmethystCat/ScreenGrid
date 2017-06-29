@@ -136,8 +136,8 @@ const getMatrixInputAndOutputData = () => {
         return axios.all([getMatrixInputData(getState), getMatrixOutputData(getState)])
             .then(data => {
                 return {
-                    matrixInput: responseExceptionFilter(data[0].data).data,
-                    matrixOutput: responseExceptionFilter(data[1].data).data
+                    matrixInput: responseExceptionFilter(data[0]).data.data,
+                    matrixOutput: responseExceptionFilter(data[1]).data.data
                 };
             });
     };

@@ -8,7 +8,7 @@ import audioBearMute from '../../../assets/image/audio-bear-active.png';
 export class Tbody extends React.Component {
     clickHandler = (e) => {
         if (e.target.cellIndex === 0) return;
-        let {rows, cols, currentMatrix, setInToOutConnect, getLogs} = this.props;
+        let {rows, cols, currentMatrix, setInToOutConnect, setInToOutDisconnect, getLogs, connections = []} = this.props;
         // console.log(e.nativeEvent);
         console.log('col: ', cols[e.target.cellIndex - 1]);
         console.log('row: ', rows[e.target.parentNode.rowIndex - 1]);
@@ -19,9 +19,11 @@ export class Tbody extends React.Component {
             inPortId: clickedRow.id,
             outPortId: clickedCol.id
         };
-        Promise.resolve(setInToOutConnect(connectObj))
+        let isConnect = this.isConnect(clickedRow, clickedCol, connections);
+        let ConnectOperation = isConnect ? setInToOutDisconnect : setInToOutConnect;
+        Promise.resolve(ConnectOperation(connectObj))
             .then(getLogs());
-        ;
+
     }
 
     mouseOverHandler = (e) => {
@@ -49,14 +51,18 @@ export class Tbody extends React.Component {
         this.props.showLayer(false);
     }
 
-    getIsConnectClasses = (row, col, connections = []) => {
+    isConnect = (row, col, connections = []) => {
         let isConnect = false;
         let ouputId = col.id,
             inputId = row.id;
         connections.forEach((connect) => {
             (connect.outMatrixPort === ouputId && connect.inMatrixPort === inputId) && (isConnect = true);
         });
-        return isConnect ? 'isConnect' : '';
+        return isConnect;
+    }
+
+    getIsConnectClasses = (row, col, connections = []) => {
+        return this.isConnect(row, col, connections) ? 'isConnect' : '';
     }
 
     openVolumePanel = (params) => {

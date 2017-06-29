@@ -50,3 +50,11 @@ export const sceneFilter = (sceneList = [], cacheSceneIds = []) => {
     });
     return newSceneList;
 };
+
+export const responseExceptionFilter = (response = {data: {}}, msg = '') => {
+    if (!response.data.success) {
+        layerAlert(response.data.error, 2);
+        throw msg || res.data.error;
+    }
+    return response;
+};

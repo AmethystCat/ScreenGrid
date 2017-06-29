@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {video} from '../common/url-config';
-import {getNewConnections, sceneFilter} from '../common/helper';
+import {getNewConnections, sceneFilter, responseExceptionFilter} from '../common/helper';
 
 const initMatrixShown = (matrixObj) => {
     return {
@@ -45,6 +45,7 @@ const getSceneList = () => {
             .then(res => {
                 if (!res.success) {
                     dispatch(showLoading(false));
+                    layerAlert(res.error, 2);
                     throw '场景数据获取失败';
                 }
                 return res.data;
@@ -85,6 +86,7 @@ const getMatrixByScene = (currSceneId) => {
             .then(response => response.data)
             .then(res => {
                 if (!res.success) {
+                    layerAlert(res.error, 2);
                     throw '矩阵数据获取失败';
                 }
                 return res.data;
@@ -160,9 +162,16 @@ const getLogs = () => {
                 module: 'VIDEOMATRIXOPERATION'
             }
         })
-            .then(res => {
-                dispatch(setLogs(res.data.data));
-            });
+        .then(response => {
+            if(!response.data.success) {
+                layerAlert(response.data.error, 2);
+                throw response.data.error;
+            }
+            return response;
+        })
+        .then(res => {
+            dispatch(setLogs(res.data.data));
+        });
     };
 };
 
@@ -224,9 +233,16 @@ const getConnections = () => {
                 videoMatrixId: getState().currentMatrixName.id
             }
         })
-            .then(res => {
-                dispatch(setConnections(res.data.data));
-            });
+        .then(response => {
+            if(!response.data.success) {
+                layerAlert(response.data.error, 2);
+                throw response.data.error;
+            }
+            return response;
+        })
+        .then(res => {
+            dispatch(setConnections(res.data.data));
+        });
     };
 };
 

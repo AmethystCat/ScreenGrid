@@ -13,7 +13,7 @@ export const getNewConnections = (originConnections = [], requestConnectionObj =
             return !(connect.inMatrixPort === filterConnections[0].inMatrixPort && connect.outMatrixPort === filterConnections[0].outMatrixPort);
         });
         return newConnections;
-    };
+    }
     // 反之，如果filterConnections.length == 0， 表示该方块为点亮，要存进原数组并返回
     newConnections.push({inMatrixPort: req_inPortId, outMatrixPort: req_outPortId});
 
@@ -28,10 +28,17 @@ export const refreshMatrix = async (promises) => {
 
 export const sceneFilter = (sceneList = [], cacheSceneIds = []) => {
     if (!sceneList.length || !cacheSceneIds.length) return sceneList;
-    let newSceneList = cacheSceneIds.map((id) => {
+    return cacheSceneIds.map((id) => {
         return sceneList.filter((scene) => {
             return id === scene.id;
         })[0];
     });
-    return newSceneList;
+};
+
+export const responseExceptionFilter = (response = {data: {}}, msg = '') => {
+    if (!response.data.success) {
+        layerAlert(response.data.error, 2);
+        throw msg || response.data.error;
+    }
+    return response;
 };

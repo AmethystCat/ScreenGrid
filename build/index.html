@@ -15,15 +15,13 @@
 <script src="/js/index.js"></script>
 <script src="volume-layer.js"></script>
 <script>
-	$('button').click(function(){
-		openVolumeLayer('123','2434',true,10,100,0,$(this),'nnnn',function(){
-			alert(11)
-		});
-//		layerAlert('删除成功',1,function(){
-//			setTimeout(function(){
-//				$('.layer-infor').remove();
-//			},1000);
-//		});
-	})
+	function layerAlert(msg, style) {
+	    var style = style || 2;
+	    layerAlert(msg, style, function() {
+            setTimeout(function(){
+				$('.layer-infor').remove();
+			},1000);
+        });
+	}
 </script>
 </html>

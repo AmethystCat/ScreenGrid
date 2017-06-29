@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {audio} from '../common/url-config';
-import {getNewConnections, sceneFilter} from '../common/helper';
+import {getNewConnections, sceneFilter, responseExceptionFilter} from '../common/helper';
 
 const initMatrixShown = (matrixObj) => {
     return {
@@ -41,7 +41,7 @@ const showLoading = (show = true) => {
 const getSceneList = () => {
     return (dispatch) => {
         return axios.get(audio.sceneListUrl)
-            .then(response => response.data)
+            .then(response => responseExceptionFilter(response).data)
             .then(res => {
                 if (!res.success) {
                     dispatch(showLoading(false));
@@ -52,7 +52,7 @@ const getSceneList = () => {
             .then(sceneList => {
                 if (sceneList.length) {
                     let cachedLoginInfo = window.localStorage.getItem('loginInfo');
-                    let cacheSceneIds = JSON.parse(cachedLoginInfo ? cachedLoginInfo : '{}').sceneIdSet || [];
+                    let cacheSceneIds = JSON.parse(cachedLoginInfo ? cachedLoginInfo : '{}')['sceneIdSet'] || [];
                     let newSceneList = sceneFilter(sceneList, cacheSceneIds);
                     dispatch(setSceneList(newSceneList));
                     return newSceneList;
@@ -85,6 +85,7 @@ const getMatrixByScene = (currSceneId) => {
             .then(response => response.data)
             .then(res => {
                 if (!res.success) {
+                    layerAlert(res.error);
                     throw '矩阵数据获取失败';
                 }
                 return res.data;
@@ -134,11 +135,10 @@ const getMatrixInputAndOutputData = () => {
     return (dispatch, getState) => {
         return axios.all([getMatrixInputData(getState), getMatrixOutputData(getState)])
             .then(data => {
-                let matrixOriginData = {
-                    matrixInput: data[0].data.data,
-                    matrixOutput: data[1].data.data
+                return {
+                    matrixInput: responseExceptionFilter(data[0].data).data,
+                    matrixOutput: responseExceptionFilter(data[1].data).data
                 };
-                return matrixOriginData;
             });
     };
 };
@@ -159,6 +159,7 @@ const getLogs = () => {
                 module: 'AUDIOMATRIXOPERATION'
             }
         })
+            .then(response => responseExceptionFilter(response))
             .then(res => {
                 dispatch(setLogs(res.data.data));
             });
@@ -226,6 +227,7 @@ const getConnections = () => {
                 audioMatrixId: getState().currentMatrixName.id
             }
         })
+            .then(response => responseExceptionFilter(response))
             .then(res => {
                 dispatch(setConnections(res.data.data));
             });
@@ -254,8 +256,32 @@ const setInToOutConnect = (connectObj) => {
                 let connections = getState().connections;
                 let newConnections = getNewConnections(connections, connectObj);
                 dispatch(setConnections(newConnections));
+            } else {
+                layerAlert(res.data.error);
             }
         });
+    };
+};
+
+const setInToOutDisconnect = (connectObj) => {
+    return (dispatch, getState) => {
+        return axios.get(audio.inToOutConnectUrl, {
+            params: {
+                audioMatrixId: connectObj.audioMatrixId,
+                inPortId: connectObj.inPortId,
+                outPortId: connectObj.outPortId,
+                mode: 'POINT'
+            }
+        })
+            .then(res => {
+                if (res.data.success) {
+                    let connections = getState().connections;
+                    let newConnections = getNewConnections(connections, connectObj);
+                    dispatch(setConnections(newConnections));
+                } else {
+                    layerAlert(res.data.error);
+                }
+            });
     };
 };
 
@@ -275,6 +301,8 @@ const getConnectionByOut = (audioMatrixId, outPortId, connections) => {
                         };
                     let newConnections = connections.push(currentPort);
                     dispatch(setConnections(newConnections));
+                } else {
+                    layerAlert(res.data.error);
                 }
             });
     };
@@ -329,7 +357,7 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
                 // matrixOriginDataCopy[portType] = newData;
                 // return dispatch(setMatrixOriginData(matrixOriginDataCopy));
             } else {
-                alert(res.data.error);
+                layerAlert(res.data.error);
             }
         })
         .then(() => {
@@ -341,17 +369,16 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
 const setVolume = ({portId, volume, portType, isVirtual}) => {
     return (dispatch, getState) => {
         let matrixOriginDataCopy = getState().matrixOriginData;
-        let newData = matrixOriginDataCopy[portType].map((el) => {
+        matrixOriginDataCopy[portType] = matrixOriginDataCopy[portType].map((el) => {
             if (isVirtual) {
-                if (el.solidPort.id === portId) {
-                    el.solidPort.volume = volume;
+                if (el['solidPort'].id === portId) {
+                    el['solidPort'].volume = volume;
                 }
             } else if (el.id === portId) {
                 el.volume = volume;
             }
             return el;
         });
-        matrixOriginDataCopy[portType] = newData;
         dispatch(setMatrixOriginData(matrixOriginDataCopy));
     };
 };
@@ -372,6 +399,7 @@ export default {
     getConnections,
     setConnections,
     setInToOutConnect,
+    setInToOutDisconnect,
     getConnectionByOut,
     setMute,
     setVolume

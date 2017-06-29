@@ -265,7 +265,7 @@ const setInToOutConnect = (connectObj) => {
 
 const setInToOutDisconnect = (connectObj) => {
     return (dispatch, getState) => {
-        return axios.get(audio.inToOutConnectUrl, {
+        return axios.get(audio.inToOutDisconnectUrl, {
             params: {
                 audioMatrixId: connectObj.audioMatrixId,
                 inPortId: connectObj.inPortId,

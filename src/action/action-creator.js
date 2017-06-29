@@ -138,8 +138,8 @@ const getMatrixInputAndOutputData = () => {
             .then(data => {
                 console.log(data);
                 return  {
-                    matrixInput: responseExceptionFilter(data[0].data).data,
-                    matrixOutput: responseExceptionFilter(data[1].data).data
+                    matrixInput: responseExceptionFilter(data[0]).data.data,
+                    matrixOutput: responseExceptionFilter(data[1]).data.data
                 };
             });
     };

@@ -54,7 +54,7 @@ export const sceneFilter = (sceneList = [], cacheSceneIds = []) => {
 export const responseExceptionFilter = (response = {data: {}}, msg = '') => {
     if (!response.data.success) {
         layerAlert(response.data.error, 2);
-        throw msg || res.data.error;
+        throw msg || response.data.error;
     }
     return response;
 };

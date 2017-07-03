@@ -85,7 +85,7 @@ const getMatrixByScene = (currSceneId) => {
             .then(response => response.data)
             .then(res => {
                 if (!res.success) {
-                    layerAlert(res.error);
+                    Alert(res.error);
                     throw '矩阵数据获取失败';
                 }
                 return res.data;
@@ -257,7 +257,7 @@ const setInToOutConnect = (connectObj) => {
                 let newConnections = getNewConnections(connections, connectObj);
                 dispatch(setConnections(newConnections));
             } else {
-                layerAlert(res.data.error);
+                Alert(res.data.error);
             }
         });
     };
@@ -279,7 +279,7 @@ const setInToOutDisconnect = (connectObj) => {
                     let newConnections = getNewConnections(connections, connectObj);
                     dispatch(setConnections(newConnections));
                 } else {
-                    layerAlert(res.data.error);
+                    Alert(res.data.error);
                 }
             });
     };
@@ -302,7 +302,7 @@ const getConnectionByOut = (audioMatrixId, outPortId, connections) => {
                     let newConnections = connections.push(currentPort);
                     dispatch(setConnections(newConnections));
                 } else {
-                    layerAlert(res.data.error);
+                    Alert(res.data.error);
                 }
             });
     };
@@ -357,7 +357,7 @@ const setMute = ({audioMatrixId, portId, mute, portType, isVirtual}) => {
                 // matrixOriginDataCopy[portType] = newData;
                 // return dispatch(setMatrixOriginData(matrixOriginDataCopy));
             } else {
-                layerAlert(res.data.error);
+                Alert(res.data.error);
             }
         })
         .then(() => {

@@ -9,31 +9,31 @@ import axios from 'axios';
 export class Operation extends React.Component {
 
     getConnectionByOut = (videoMatrixId, outPortId, connections) => {
-        axios.get(video.connectionByOutUrl, {
-            params: {
-                videoMatrixId,
-                outPortId
-            }
-        })
-        .then(res => {
-            if (res.data.success) {
-                let currentPort = {
-                    inMatrixPort: res.data.data,
-                    outMatrixPort: outPortId
-                };
-                // 连接记录中对当前请求的输出源对应的输入源进行更新操作
-                // connections.push(currentPort);
-                let newConnections = connections.map((connect) => {
-                    if (connect.outMatrixPort === currentPort.outMatrixPort) {
-                        currentPort.inMatrixPort && (connect.inMatrixPort = currentPort.inMatrixPort);
+        return  () => axios.get(video.connectionByOutUrl, {
+                    params: {
+                        videoMatrixId,
+                        outPortId
                     }
-                    return connect;
+                })
+                .then(res => {
+                    if (res.data.success) {
+                        let currentPort = {
+                            inMatrixPort: res.data.data,
+                            outMatrixPort: outPortId
+                        };
+                        // 连接记录中对当前请求的输出源对应的输入源进行更新操作
+                        // connections.push(currentPort);
+                        let newConnections = connections.map((connect) => {
+                            if (connect.outMatrixPort === currentPort.outMatrixPort) {
+                                currentPort.inMatrixPort && (connect.inMatrixPort = currentPort.inMatrixPort);
+                            }
+                            return connect;
+                        });
+                        this.props.setConnections(newConnections);
+                    } else {
+                        alert(res.data.error);
+                    }
                 });
-                this.props.setConnections(newConnections);
-            } else {
-                alert(res.data.error);
-            }
-        });
     }
 
     refresh = () => {

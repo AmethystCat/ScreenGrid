@@ -36,8 +36,8 @@ export const getNewConnections = (originConnections = [], requestConnectionObj =
 };
 
 export const refreshMatrix = async (promises) => {
-    for (let promise of promises) {
-        await promise;
+    for (let i = 0; promises[i]; i++) {
+        await setTimeout(function() { promises[i](); }, i*500);
     }
 };
 

@@ -22,13 +22,13 @@ export class Thead extends React.Component {
     }
 
     render() {
-        let {setMute, currentMatrix} = this.props;
+        let {setMute, currentMatrix, data = []} = this.props;
         let isVirtual = currentMatrix.virtual;
         return (
             <thead>
             	<tr>
             		<th></th>
-	            	{this.props.data.map((el, index) => {
+	            	{data.map((el, index) => {
 	            		return <th key={index} width={20}>
                             {el.name}
                             <img 

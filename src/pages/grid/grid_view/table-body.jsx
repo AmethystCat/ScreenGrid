@@ -36,7 +36,7 @@ export class Tbody extends React.Component {
         // 格子之间的间隔由td的border来控制，因为border-collapse合并，两行之间的宽度即为td的border宽度，
         // 即实际一个td边框的宽度只取设定好的border一半的宽度，
         // 所以浮层也只取一半的偏移量
-        let tdBorder = 6;
+        let tdBorder = 4;
         fx.style.top = e.target.offsetTop + table.offsetTop + tdBorder/2 + 'px';
         fy.style.left = e.target.offsetLeft + table.offsetLeft + tdBorder/2 + 'px';
     }

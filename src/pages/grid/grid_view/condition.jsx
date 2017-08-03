@@ -13,17 +13,18 @@ class Condition extends React.Component {
 	}
     render() {
     	let {scene, currentScene, matrixName, currentMatrixName} = this.props;
+    	let sceneDisplay = scene.filter(scene => scene['displayed']);
         return (
             <div className="condition-w">
                 <span>场景</span>
-		<Select 
+				<Select
                 	placeholder="请选择场景" 
                 	id={'scene'} 
-                	data={scene} 
+                	data={sceneDisplay}
                 	current={currentScene}
                 	changeHandler={this.changeScene}
                 	/> 
-		<span>矩阵名</span>
+				<span>矩阵名</span>
                 <Select 
                 	placeholder="请选择矩阵名" 
                 	id={'matrix'} 

@@ -4,14 +4,21 @@ function Ul(props) {
     return (<ul>
         {props.list.map((log, index) => {
         	let {operation} = log;
-        	let logContent = '';
+			let logContent = '',
+				logContentEl;
         	if (operation === 'CONNECT' || operation === 'DISCONNECT') {
-        		logContent = `${log.matrixPort}${log.description}${log.toMatrixPort}`;
+				logContentEl = <span>
+						{log.matrixPort}
+						<span className="description">{log.description}</span>
+						{log.toMatrixPort}
+					</span>;
+				logContent = `${log.matrixPort}${log.description}${log.toMatrixPort}`;
         	} else {
-        		logContent = `${log.matrixPort}${log.description}`;
+				logContentEl = <span>{log.matrixPort}<span className="description">{log.description}</span></span>;
+				logContent = `${log.matrixPort}${log.description}`;
         	}
-            return <li title={log.description} key={index}>
-            		{logContent}
+            return <li title={logContent} key={index}>
+            		{index+1}. {logContentEl}
             	</li>;
         })}
     </ul>);
